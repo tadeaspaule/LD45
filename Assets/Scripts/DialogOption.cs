@@ -6,13 +6,12 @@ using TMPro;
 
 public class DialogOption : MonoBehaviour
 {
-    TextMeshProUGUI text;
+    public TextMeshProUGUI text;
     public Image dialogFace;
     public DialogManager dialogManager;
 
     void Start()
     {
-        text = GetComponent<TextMeshProUGUI>();
         MouseLeft();
     }
     

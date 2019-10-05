@@ -6,13 +6,13 @@ using TMPro;
 
 public class EditorManager : MonoBehaviour
 {
-    #region Tools Panel
+    #region Other Managers
 
-    public Transform toolsPanel;
-    public GameObject selectionPrefab;
-    public TextMeshProUGUI hoverText;
+    public DialogManager dialogManager;
 
     #endregion
+    
+    public ToolsPanel toolsPanel;
 
     public CustomizePanel customizePanel;
 
@@ -57,7 +57,7 @@ public class EditorManager : MonoBehaviour
     void Start()
     {
         currentScene = menuScene;
-        AddToolToPanel("button");
+        dialogManager.OpenDialog("I need to make a main menu first...", "OK! Let's get it done!","UI");
     }
 
     // Update is called once per frame
@@ -72,15 +72,6 @@ public class EditorManager : MonoBehaviour
                 customizePanel.OpenCustomizeOptions(selectedItem.name);
             }
         }
-    }
-
-    public void AddToolToPanel(string name)
-    {
-        Sprite img = Resources.Load<Sprite>($"ToolIcons/{name}");
-        GameObject go = Instantiate(selectionPrefab,Vector3.zero,Quaternion.identity,toolsPanel);
-        go.GetComponent<Button>().onClick.AddListener(delegate {ToolClicked(name);});
-        go.GetComponent<Image>().sprite = img;
-        go.name = name;
     }
 
     void SetSelectedItem(GameObject item)
@@ -134,11 +125,6 @@ public class EditorManager : MonoBehaviour
         }
     }
 
-    public void UpdateHoverText(string txt)
-    {
-        hoverText.text = txt;
-    }
-
     public void PlacedItemClicked(GameObject item)
     {
         if (itemToPlace != null) return; // nothing happens if currently dragging something
@@ -172,4 +158,19 @@ public class EditorManager : MonoBehaviour
             SetSelectedItem(null);
         }
     }
+
+    #region Click Events
+
+    public void ClickedDoIt()
+    {
+        dialogManager.CloseDialog();
+        toolsPanel.AddToolToPanel("button");
+    }
+
+    public void ClickedSkipIt()
+    {
+        dialogManager.CloseDialog();
+    }
+
+    #endregion
 }

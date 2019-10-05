@@ -33,6 +33,12 @@ public class DialogManager : MonoBehaviour
         // reset
         doItOption.MouseLeft();
         skipItOption.MouseLeft();
+        dialogOuter.SetActive(true);
+    }
+
+    public void CloseDialog()
+    {
+        dialogOuter.SetActive(false);
     }
 
     public Sprite GetDoItSprite()
