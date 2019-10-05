@@ -25,6 +25,14 @@ public class ToolsManager : MonoBehaviour
     
     public GameObject customizePrefab;
 
+    bool customizeOpen = false;
+
+    void CloseCustomizePanel()
+    {
+        a.Play("closecustomize");
+        customizeOpen = false;
+    }
+
     #endregion
 
     #region Selected Tool
@@ -38,10 +46,25 @@ public class ToolsManager : MonoBehaviour
 
     #endregion
 
+    #region Appearance
+
+    HashSet<string> prettyVersions = new HashSet<string>();
+
+    #endregion
+
+    #region Scenes
+
+    public Transform menuScene;
+    public Transform gameScene;
+    Transform currentScene;
+
+    #endregion
+
     
     // Start is called before the first frame update
     void Start()
     {
+        currentScene = menuScene;
         AddToolToPanel("button");
     }
 
@@ -79,11 +102,44 @@ public class ToolsManager : MonoBehaviour
     public void ToolClicked(string name)
     {
         Debug.Log(name);
-        GameObject prefab = Resources.Load<GameObject>($"Tools/{name}");
+        GameObject prefab = GetItemPrefab(name);
         Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        itemToPlace = Instantiate(prefab,new Vector3(pos.x,pos.y,0f),Quaternion.identity);
-        if (selectedItem != null) a.Play("closecustomize");
+        itemToPlace = Instantiate(prefab,new Vector3(pos.x,pos.y,0f),Quaternion.identity,currentScene);
+        itemToPlace.name = name;
+        if (selectedItem != null) CloseCustomizePanel();
         SetSelectedItem(itemToPlace);
+    }
+
+    GameObject GetItemPrefab(string name)
+    {
+        if (prettyVersions.Contains(name)) name += "pretty";
+        return Resources.Load<GameObject>($"Tools/{name}");
+    }
+
+    public void UnlockPrettyVersion(string itemName)
+    {
+        prettyVersions.Add(itemName);
+        // replace all existing
+        List<Vector3> posToInstantiate = new List<Vector3>();
+        int newSelected = -1; // in case you replace the selected object, re-select it
+        for (int i = 0; i < currentScene.childCount; i++) {
+            Transform t = currentScene.GetChild(i);
+            if (t.name.Equals(itemName)) {
+                Vector3 pos = t.position;
+                Destroy(t.gameObject);
+                posToInstantiate.Add(pos);
+            }
+            if (t.gameObject.Equals(selectedItem)) {
+                newSelected = i;
+            }
+        }
+        for (int i = 0; i < posToInstantiate.Count; i++) {
+            GameObject go = Instantiate(GetItemPrefab(itemName),posToInstantiate[i],Quaternion.identity,currentScene);
+            if (i == newSelected) {
+                selectedItem = go;
+                go.GetComponent<SelectedDisplay>().ToggleActive(true);
+            }
+        }
     }
 
     public void UpdateHoverText(string txt)
@@ -120,7 +176,10 @@ public class ToolsManager : MonoBehaviour
             optionAdded.GetComponent<Image>().sprite = img;
             optionAdded.name = op;
         }
-        a.Play("opencustomize");
+        if (!customizeOpen) {
+            a.Play("opencustomize");
+            customizeOpen = true;
+        }
     }
 
     public void SelectedCustomizeOption(string name)
@@ -133,7 +192,7 @@ public class ToolsManager : MonoBehaviour
                 Destroy(selectedItem);
                 SetSelectedItem(null);
                 itemToPlace = null;
-                a.Play("closecustomize");
+                CloseCustomizePanel();
                 break;
             default:
                 break;
@@ -145,7 +204,7 @@ public class ToolsManager : MonoBehaviour
         // this might unselect item or something like that depending on circumstances
         Debug.Log("Background clicked");
         if (selectedItem != null) {
-            a.Play("closecustomize");
+            CloseCustomizePanel();
             SetSelectedItem(null);
         }
     }
