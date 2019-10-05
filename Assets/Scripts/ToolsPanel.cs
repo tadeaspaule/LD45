@@ -32,6 +32,10 @@ public class ToolsPanel : MonoBehaviour
 
     public void UpdateHoverText(string txt)
     {
+        if (txt.Length == 0) {
+            hoverText.text = "";
+            return;
+        }
         foreach (NameIDPair nameIDPair in names) {
             if (nameIDPair.internalName.Equals(txt)) {
                 hoverText.text = nameIDPair.showName;
@@ -52,11 +56,13 @@ public class ToolsPanel : MonoBehaviour
         UpdateUseTexts();
     }
 
-    public void DisplayTools(string[] tools)
+    List<string> menuOnlyTools = new List<string>(new string[]{"button","buttonpretty"});
+    
+    public void DisplayTools(string[] tools, bool isInMenu)
     {
         Reset();
         foreach (string tool in tools) {
-            AddToolToPanel(tool);
+            if (menuOnlyTools.Contains(tool) == isInMenu) AddToolToPanel(tool);
         }
     }
 

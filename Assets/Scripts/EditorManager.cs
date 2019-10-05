@@ -36,12 +36,14 @@ public class EditorManager : MonoBehaviour
         public string dialogHeader;
         public string doItText;
         public string afterSkip;
-        public string[] availableTools;
+        public string[] gainTools;
     }
 
     List<Stage> stageList = new List<Stage>();
     public TextAsset stagesJson;
     int currentStage;
+
+    List<string> availableTools = new List<string>();
 
     void StartStage()
     {
@@ -58,8 +60,24 @@ public class EditorManager : MonoBehaviour
 
     void SetupStage()
     {
+        string name = stageList[currentStage].name;
+        if (name.Equals("first level")) {
+            SwitchScene(false);
+            ShowButtonTooltip(playLevelBtn, "To playtest your level, click this button");
+            if (!nextStageBtn.activeSelf) {
+                // if you skipped the menu sequence
+                ShowButtonTooltip(nextStageBtn, "When you're ready, move on by clicking this button");
+            }
+        }
+        else if (name.Equals("more levels")) {
+            SwitchScene(false);
+            ShowButtonTooltip(changeLevelBtn, "To make more levels, click this button");
+        }
         // sets up tools panel and maybe other things
-        toolsPanel.DisplayTools(stageList[currentStage].availableTools);
+        foreach (string tool in stageList[currentStage].gainTools) {
+            availableTools.Add(tool);
+        }
+        toolsPanel.DisplayTools(availableTools.ToArray(), isInMenu);
     }
 
     void SkipStage()
@@ -111,16 +129,18 @@ public class EditorManager : MonoBehaviour
     public Transform sceneHolder;
     public Transform menuScene;
     public Transform gameScene;
-    bool isInMenu = false;
+    bool isInMenu = true;
     int currentLevel = 0;
     public Transform currentScene;
 
     public void SwitchScene(bool switchToMenu)
     {
+        Debug.Log("Switching scene");
         menuScene.gameObject.SetActive(switchToMenu);
         gameScene.gameObject.SetActive(!switchToMenu);
         if (switchToMenu) currentScene = menuScene;
         else SwitchToLevel(currentLevel);
+        isInMenu = switchToMenu;
         customizePanel.CloseCustomizePanel();
         SetSelectedItem(null);
         itemToPlace = null;
@@ -134,20 +154,29 @@ public class EditorManager : MonoBehaviour
 
     #endregion
     
+    #region Buttons in bottom right
+    
+    public GameObject nextStageBtn;
+    public GameObject playLevelBtn;
+    public GameObject changeLevelBtn;
+
+    #endregion
+    
     #region Unity Methods
     
     // Start is called before the first frame update
     void Start()
     {
-        currentScene = gameScene.GetChild(0);
-        // SwitchScene(false);
+        currentScene = menuScene;
         stageList = JsonReader.readJsonArray<Stage>(stagesJson.ToString());
         currentStage = 0;
-        // StartStage();
-        toolsPanel.AddToolToPanel("player");
-        toolsPanel.AddToolToPanel("platform");
-        toolsPanel.AddToolToPanel("enemyshooting");
-        toolsPanel.AddToolToPanel("enemywalking");
+        StartStage();
+        // uncomment below to test game
+        // SwitchScene(false);
+        // toolsPanel.AddToolToPanel("player");
+        // toolsPanel.AddToolToPanel("platform");
+        // toolsPanel.AddToolToPanel("enemyshooting");
+        // toolsPanel.AddToolToPanel("enemywalking");
     }
 
     // Update is called once per frame
@@ -158,6 +187,11 @@ public class EditorManager : MonoBehaviour
             itemToPlace.transform.position = new Vector3(pos.x,pos.y,0f);
 
             if (Input.GetMouseButtonDown(0)) {
+                // placed down item
+                if (!nextStageBtn.activeSelf) {
+                    // after first item is placed, enable next stage button
+                    ShowButtonTooltip(nextStageBtn, "When you're ready, move on by clicking this button");
+                }
                 selectedItem = itemToPlace;
                 itemToPlace = null;
                 customizePanel.OpenCustomizeOptions(selectedItem.name);
@@ -254,11 +288,23 @@ public class EditorManager : MonoBehaviour
 
     public void PlacedItemClicked(GameObject item)
     {
+        nextStageBtn.SetActive(true);
         Debug.Log("Clicked placed item");
         if (itemToPlace != null) return; // nothing happens if currently dragging something
         Debug.Log("Clicked placed item part 2");
         SetSelectedItem(item);
         customizePanel.OpenCustomizeOptions(item.name);
+    }
+
+    void ShowButtonTooltip(GameObject btn, string text)
+    {
+        btn.SetActive(true);
+        ShowTooltip(text);
+    }
+
+    void ShowTooltip(string text)
+    {
+        Debug.Log(text);
     }
 
     public void ClickedDoIt()
@@ -275,6 +321,11 @@ public class EditorManager : MonoBehaviour
     public void ClickedNextStage()
     {
         currentStage += 1;
+        if (stageList[currentStage].name.Equals("more levels")) {
+            // reached the last stage, now allow making new levels and disable next stage btn
+            nextStageBtn.SetActive(false);
+            ShowTooltip("Make more levels");
+        }
         StartStage();
     }
 
