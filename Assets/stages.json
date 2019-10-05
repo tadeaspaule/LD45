@@ -2,7 +2,7 @@
     {
         "name": "main menu",
         "gainTools": ["button"],
-        "dialogMode": "UI",
+        "dialogMode": "programming",
         "skippable": true,
         "dialogHeader": "I should make a main menu first...",
         "doItText": "OK! Let's do it!",
@@ -11,7 +11,7 @@
     {
         "name": "main menu pretty",
         "gainTools": ["buttonpretty"],
-        "dialogMode": "Art",
+        "dialogMode": "art",
         "skippable": true,
         "dialogHeader": "Those buttons look a bit bland, maybe I should improve them just a bit...",
         "doItText": "They're the first thing a player sees, they should be beautiful!",
@@ -29,7 +29,7 @@
         "name": "first level pretty",
         "gainTools": [],
         "skippable": true,
-        "dialogMode": "Art",
+        "dialogMode": "art",
         "dialogHeader": "Those models look awful, I should work on them a bit...",
         "doItText": "Let me show you my amazing drawing skills!",
         "afterSkip": "second level"
@@ -46,7 +46,7 @@
         "name": "more enemies",
         "gainTools": ["enemyshooting"],
         "skippable": true,
-        "dialogMode": "Content",
+        "dialogMode": "programming",
         "dialogHeader": "I should add some more enemy choices, this might get boring...",
         "doItText": "Let's do it, I have some great ideas!",
         "afterSkip": "prettier enemies"
@@ -55,7 +55,7 @@
         "name": "prettier enemies",
         "gainTools": [],
         "skippable": true,
-        "dialogMode": "Art",
+        "dialogMode": "art",
         "dialogHeader": "Yeaaah, I think those enemy models need some work...",
         "doItText": "Let me show you my amazing drawing skills!",
         "afterSkip": "more levels"

@@ -266,7 +266,7 @@ public class EditorManager : MonoBehaviour
             case "move":
                 itemToPlace = selectedItem;
                 break;
-            case "remove":
+            case "delet":
                 if (selectedItem.name.Equals("player")) hasPlayer = false;
                 if (selectedItem.name.Equals("end")) hasEnd = false;
                 Destroy(selectedItem);
@@ -275,7 +275,7 @@ public class EditorManager : MonoBehaviour
                 itemToPlace = null;
                 customizePanel.CloseCustomizePanel();
                 break;
-            case "widen":
+            case "expand":
                 selectedItem.transform.GetChild(1).localScale += new Vector3(0.3f,0f,0f);
                 break;
             case "shrink":

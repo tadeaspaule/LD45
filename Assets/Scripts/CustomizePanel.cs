@@ -29,7 +29,7 @@ public class CustomizePanel : MonoBehaviour
 
     public void UpdateCustomizeHoverText(string txt)
     {
-        customizeHeader.text = txt;
+        customizeHeader.text = ToTitle(txt);
     }
     
     public void OpenCustomizeOptions(string itemName)
@@ -41,10 +41,10 @@ public class CustomizePanel : MonoBehaviour
         
         List<string> options = new List<string>();
         options.Add("move");
-        options.Add("remove");
+        options.Add("delete");
         // add more options
         if (itemName.Equals("platform")) {
-            options.Add("widen");
+            options.Add("expand");
             options.Add("shrink");
         }
         foreach (string op in options) {
@@ -57,5 +57,11 @@ public class CustomizePanel : MonoBehaviour
             panelAnimation.Play("opencustomize");
             customizeOpen = true;
         }
+    }
+
+    string ToTitle(string txt)
+    {
+        if (txt.Length == 0) return "";
+        return txt[0].ToString().ToUpper() + txt.Substring(1);
     }
 }

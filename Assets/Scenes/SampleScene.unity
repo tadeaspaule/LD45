@@ -2321,9 +2321,13 @@ MonoBehaviour:
   doItTMPro: {fileID: 499647907}
   doItOption: {fileID: 499647905}
   skipItOption: {fileID: 951980684}
-  doItSprite: {fileID: 21300000, guid: 6de3f347e50f659488c47f278fc31cc5, type: 3}
-  skipItSprite: {fileID: 21300000, guid: 6de3f347e50f659488c47f278fc31cc5, type: 3}
-  defaultSprite: {fileID: 21300000, guid: 6de3f347e50f659488c47f278fc31cc5, type: 3}
+  pairs:
+  - sprite: {fileID: 21300000, guid: b435b0f4ca702f04497c7de6f13b488f, type: 3}
+    mode: programming
+  - sprite: {fileID: 21300000, guid: 6a25a79905fb4f843a27d8630e3b69a2, type: 3}
+    mode: art
+  skipItSprite: {fileID: 21300000, guid: 98ed4bff2f8752846a87cdb1416315f9, type: 3}
+  defaultSprite: {fileID: 21300000, guid: 31f508e31df03f74e8403cc705ea2059, type: 3}
 --- !u!4 &1107666309
 Transform:
   m_ObjectHideFlags: 0

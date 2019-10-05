@@ -32,5 +32,6 @@ public class DialogOption : MonoBehaviour
         transform.localScale = Vector3.one;
         text.color = new Color(0.8f,0.8f,0.8f);
         dialogFace.color = Color.white;
+        dialogFace.sprite = dialogManager.GetDefaultSprite();
     }
 }

@@ -14,8 +14,17 @@ public class DialogManager : MonoBehaviour
 
     #region Dialog Face images
 
-    public Sprite doItSprite;
-    public Sprite skipItSprite; // TODO more variety maybe?
+    [System.Serializable]
+    public class ModeSpritePair
+    {
+        public Sprite sprite;
+        public string mode;
+    }
+    public ModeSpritePair[] pairs;
+
+    Sprite doItSprite;
+    
+    public Sprite skipItSprite;
     public Sprite defaultSprite;
 
     #endregion
@@ -25,6 +34,12 @@ public class DialogManager : MonoBehaviour
     public void OpenDialog(string header, string doItText, string mode)
     {
         this.mode = mode;
+        foreach (ModeSpritePair msp in pairs) {
+            if (msp.mode.Equals(mode)) {
+                doItSprite = msp.sprite;
+                break;
+            }
+        }
         headerTMPro.text = header;
         doItTMPro.text = doItText;
 
