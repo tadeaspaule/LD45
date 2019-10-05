@@ -17,6 +17,10 @@ public class EditorManager : MonoBehaviour
     public ToolsPanel toolsPanel;
     public CustomizePanel customizePanel;
 
+    public bool hasPlayer = false;
+    public bool hasStart = false;
+    public bool hasEnd = false;
+
     GameObject itemToPlace = null; // item you're moving
     GameObject selectedItem = null; // item you're editing
 
@@ -132,7 +136,7 @@ public class EditorManager : MonoBehaviour
         // currentStage = 0;
         // StartStage();
         toolsPanel.AddToolToPanel("platform");
-        toolsPanel.AddToolToPanel("button");
+        toolsPanel.AddToolToPanel("player");
     }
 
     // Update is called once per frame
@@ -185,6 +189,18 @@ public class EditorManager : MonoBehaviour
 
     public void ToolClicked(string name)
     {
+        if (name.Equals("player")) {
+            if (hasPlayer) return;
+            hasPlayer = true;
+        }
+        if (name.Equals("start")) {
+            if (hasStart) return;
+            hasStart = true;
+        }
+        if (name.Equals("end")) {
+            if (hasEnd) return;
+            hasEnd = true;
+        }
         Debug.Log($"Clicked tool {name}");
         GameObject prefab = GetItemPrefab(name);
         Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -192,6 +208,7 @@ public class EditorManager : MonoBehaviour
         itemToPlace.name = name;
         if (selectedItem != null) customizePanel.CloseCustomizePanel();
         SetSelectedItem(itemToPlace);
+        toolsPanel.UpdateUseTexts();
     }
 
     public void ClickedBackground()
@@ -212,7 +229,11 @@ public class EditorManager : MonoBehaviour
                 itemToPlace = selectedItem;
                 break;
             case "remove":
+                if (selectedItem.name.Equals("player")) hasPlayer = false;
+                if (selectedItem.name.Equals("start")) hasStart = false;
+                if (selectedItem.name.Equals("end")) hasEnd = false;
                 Destroy(selectedItem);
+                toolsPanel.UpdateUseTexts();
                 SetSelectedItem(null);
                 itemToPlace = null;
                 customizePanel.CloseCustomizePanel();

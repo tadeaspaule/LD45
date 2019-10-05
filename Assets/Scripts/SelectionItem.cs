@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class SelectionItem : MonoBehaviour
 {    
     Image image;
     ToolsPanel toolsPanel;
+    public TextMeshProUGUI usesText;
+    public GameObject infinityImg;
+    
     
     // Start is called before the first frame update
     void Start()
@@ -16,10 +20,11 @@ public class SelectionItem : MonoBehaviour
         MouseLeft();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SetUses(int current, int max)
     {
-        
+        infinityImg.SetActive(false);
+        usesText.gameObject.SetActive(true);
+        usesText.text = $"{current} / {max}";
     }
 
     public void MouseEntered()
