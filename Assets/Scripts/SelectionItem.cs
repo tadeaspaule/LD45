@@ -6,13 +6,13 @@ using UnityEngine.UI;
 public class SelectionItem : MonoBehaviour
 {    
     Image image;
-    ToolsManager tm;
+    EditorManager editorManager;
     
     // Start is called before the first frame update
     void Start()
     {
         image = GetComponent<Image>();
-        tm = FindObjectOfType<ToolsManager>();
+        editorManager = FindObjectOfType<EditorManager>();
         MouseLeft();
     }
 
@@ -26,13 +26,13 @@ public class SelectionItem : MonoBehaviour
     {
         transform.localScale = new Vector3(1.1f,1.1f,1.1f);
         image.color = Color.white;
-        tm.UpdateHoverText(this.name);
+        editorManager.UpdateHoverText(this.name);
     }
 
     public void MouseLeft()
     {
         transform.localScale = Vector3.one;
         image.color = new Color(0.8f,0.8f,0.8f);
-        tm.UpdateHoverText("");
+        editorManager.UpdateHoverText("");
     }
 }

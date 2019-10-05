@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class ItemClickListener : MonoBehaviour
 {
-    ToolsManager toolsManager;
+    EditorManager editorManager;
     
     // Start is called before the first frame update
     void Start()
     {
-        toolsManager = FindObjectOfType<ToolsManager>();
+        editorManager = FindObjectOfType<EditorManager>();
     }
 
     void OnMouseDown()
     {
-        toolsManager.PlacedItemClicked(this.gameObject);  
+        editorManager.PlacedItemClicked(this.gameObject);  
     }
 }

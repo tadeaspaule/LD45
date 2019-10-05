@@ -6,13 +6,15 @@ using UnityEngine.UI;
 public class CustomizeItem : MonoBehaviour
 {    
     Image image;
-    ToolsManager tm;
+    CustomizePanel customizePanel;
+    EditorManager editor;
     
     // Start is called before the first frame update
     void Start()
     {
         image = GetComponent<Image>();
-        tm = FindObjectOfType<ToolsManager>();
+        customizePanel = FindObjectOfType<CustomizePanel>();
+        editor = FindObjectOfType<EditorManager>();
         MouseLeft();
     }
 
@@ -26,18 +28,18 @@ public class CustomizeItem : MonoBehaviour
     {
         transform.localScale = new Vector3(1.1f,1.1f,1.1f);
         image.color = Color.white;
-        tm.UpdateCustomizeHoverText(this.name);
+        customizePanel.UpdateCustomizeHoverText(this.name);
     }
 
     public void MouseLeft()
     {
         transform.localScale = Vector3.one;
         image.color = new Color(0.8f,0.8f,0.8f);
-        tm.UpdateCustomizeHoverText("");
+        customizePanel.UpdateCustomizeHoverText("");
     }
 
     public void OptionClicked()
     {
-        tm.SelectedCustomizeOption(this.gameObject.name);
+        editor.SelectedCustomizeOption(this.gameObject.name);
     }
 }

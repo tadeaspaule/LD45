@@ -124,6 +124,7 @@ GameObject:
   - component: {fileID: 103090682}
   - component: {fileID: 103090681}
   - component: {fileID: 103090680}
+  - component: {fileID: 103090683}
   m_Layer: 5
   m_Name: CustomizePanelOuter
   m_TagString: Untagged
@@ -206,6 +207,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 103090678}
   m_CullTransparentMesh: 0
+--- !u!114 &103090683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 103090678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 176c711b5317b8548894da97d3f88443, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  customizeOptionsContainer: {fileID: 452861512}
+  customizeHeader: {fileID: 439704406}
+  panelAnimation: {fileID: 103090680}
+  customizePrefab: {fileID: 1245188929099517269, guid: f0e93bf1b69ce8142aa1c6aef763473f,
+    type: 3}
 --- !u!1 &128539421
 GameObject:
   m_ObjectHideFlags: 0
@@ -262,18 +280,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 148642980}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: baf3fb9a6b0e8f341b026469560a8c29, type: 3}
+  m_Script: {fileID: 11500000, guid: e3a3f94887e95964b9b16db417ac4980, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   toolsPanel: {fileID: 1360076478}
   selectionPrefab: {fileID: 2997373402277375831, guid: 3b50fbcc6a72b044186e7c9049b2032c,
     type: 3}
   hoverText: {fileID: 767280993}
-  customizeOptionsContainer: {fileID: 452861512}
-  customizeHeader: {fileID: 439704406}
-  a: {fileID: 103090680}
-  customizePrefab: {fileID: 1245188929099517269, guid: f0e93bf1b69ce8142aa1c6aef763473f,
-    type: 3}
+  customizePanel: {fileID: 103090683}
   sceneHolder: {fileID: 2106010342}
   menuScene: {fileID: 128539422}
   gameScene: {fileID: 1101224650}
@@ -512,7 +526,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &404459868
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1253,7 +1267,7 @@ GameObject:
   - component: {fileID: 767280994}
   - component: {fileID: 767280993}
   m_Layer: 5
-  m_Name: TextMeshPro Text
+  m_Name: ToolsHoverText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1479,7 +1493,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 148642981}
+      - m_Target: {fileID: 0}
         m_MethodName: SwitchScene
         m_Mode: 5
         m_Arguments:

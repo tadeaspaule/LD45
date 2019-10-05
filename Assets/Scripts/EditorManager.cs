@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class ToolsManager : MonoBehaviour
+public class EditorManager : MonoBehaviour
 {
     #region Tools Panel
 
@@ -14,23 +14,7 @@ public class ToolsManager : MonoBehaviour
 
     #endregion
 
-    #region Customize Panel
-
-    public Transform customizeOptionsContainer;
-    public TextMeshProUGUI customizeHeader;
-    public Animation a;
-    
-    public GameObject customizePrefab;
-
-    bool customizeOpen = false;
-
-    void CloseCustomizePanel()
-    {
-        a.Play("closecustomize");
-        customizeOpen = false;
-    }
-
-    #endregion
+    public CustomizePanel customizePanel;
 
     #region Selected Tool
 
@@ -62,7 +46,7 @@ public class ToolsManager : MonoBehaviour
             if (scene.name.Equals(sceneName)) scene.gameObject.SetActive(true);
             else if (!scene.name.Equals("BackgroundClickCatcher")) scene.gameObject.SetActive(false);
         }
-        CloseCustomizePanel();
+        customizePanel.CloseCustomizePanel();
         selectedItem = null;
         itemToPlace = null;
     }
@@ -85,7 +69,7 @@ public class ToolsManager : MonoBehaviour
 
             if (Input.GetMouseButtonDown(0)) {
                 itemToPlace = null;
-                OpenCustomizeOptions(selectedItem.name);
+                customizePanel.OpenCustomizeOptions(selectedItem.name);
             }
         }
     }
@@ -114,7 +98,7 @@ public class ToolsManager : MonoBehaviour
         Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         itemToPlace = Instantiate(prefab,new Vector3(pos.x,pos.y,0f),Quaternion.identity,currentScene);
         itemToPlace.name = name;
-        if (selectedItem != null) CloseCustomizePanel();
+        if (selectedItem != null) customizePanel.CloseCustomizePanel();
         SetSelectedItem(itemToPlace);
     }
 
@@ -155,39 +139,11 @@ public class ToolsManager : MonoBehaviour
         hoverText.text = txt;
     }
 
-    public void UpdateCustomizeHoverText(string txt)
-    {
-        customizeHeader.text = txt;
-    }
-
     public void PlacedItemClicked(GameObject item)
     {
         if (itemToPlace != null) return; // nothing happens if currently dragging something
         SetSelectedItem(item);
-        OpenCustomizeOptions(item.name);
-    }
-
-    void OpenCustomizeOptions(string itemName)
-    {
-        // delete any customize options that might be left over in the container
-        foreach (Transform child in customizeOptionsContainer) {
-            Destroy(child.gameObject);
-        }
-        
-        List<string> options = new List<string>();
-        options.Add("move");
-        options.Add("remove");
-        // add more options
-        foreach (string op in options) {
-            Sprite img = Resources.Load<Sprite>($"CustomizeOptions/{op}");
-            GameObject optionAdded = Instantiate(customizePrefab,Vector3.zero,Quaternion.identity,customizeOptionsContainer);
-            optionAdded.GetComponent<Image>().sprite = img;
-            optionAdded.name = op;
-        }
-        if (!customizeOpen) {
-            a.Play("opencustomize");
-            customizeOpen = true;
-        }
+        customizePanel.OpenCustomizeOptions(item.name);
     }
 
     public void SelectedCustomizeOption(string name)
@@ -200,7 +156,7 @@ public class ToolsManager : MonoBehaviour
                 Destroy(selectedItem);
                 SetSelectedItem(null);
                 itemToPlace = null;
-                CloseCustomizePanel();
+                customizePanel.CloseCustomizePanel();
                 break;
             default:
                 break;
@@ -212,7 +168,7 @@ public class ToolsManager : MonoBehaviour
         // this might unselect item or something like that depending on circumstances
         Debug.Log("Background clicked");
         if (selectedItem != null) {
-            CloseCustomizePanel();
+            customizePanel.CloseCustomizePanel();
             SetSelectedItem(null);
         }
     }

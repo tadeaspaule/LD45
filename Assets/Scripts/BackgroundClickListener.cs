@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class BackgroundClickListener : BaseClickListener
 {
-    ToolsManager toolsManager;
+    EditorManager editorManager;
 
     void Start()
     {
-        toolsManager = FindObjectOfType<ToolsManager>();
+        editorManager = FindObjectOfType<EditorManager>();
     }
     
     void OnMouseDown()
     {
         if (IsPointerOverUIObject()) return;
-        toolsManager.ClickedBackground();
+        editorManager.ClickedBackground();
     }
 }
