@@ -286,6 +286,7 @@ MonoBehaviour:
   dialogManager: {fileID: 1107666308}
   toolsPanel: {fileID: 1360076482}
   customizePanel: {fileID: 103090683}
+  stagesJson: {fileID: 4900000, guid: 78e305eecc2363e4b884ec3b7191a306, type: 3}
   sceneHolder: {fileID: 2106010342}
   menuScene: {fileID: 128539422}
   gameScene: {fileID: 1101224650}

@@ -21,6 +21,14 @@ public class ToolsPanel : MonoBehaviour
         go.name = name;
     }
 
+    public void DisplayTools(string[] tools)
+    {
+        Reset();
+        foreach (string tool in tools) {
+            AddToolToPanel(tool);
+        }
+    }
+
     public void Reset()
     {
         foreach (Transform tool in toolsPanel) {

@@ -12,92 +12,67 @@ public class EditorManager : MonoBehaviour
 
     #endregion
     
+    #region GameObjects
+    
     public ToolsPanel toolsPanel;
-
     public CustomizePanel customizePanel;
-
-    #region Selected Tool
 
     GameObject itemToPlace = null; // item you're moving
     GameObject selectedItem = null; // item you're editing
 
     #endregion
+    
+    #region Stages
 
-    #region Editing variables
-
-    #endregion
-
-    #region Appearance
-
-    HashSet<string> prettyVersions = new HashSet<string>();
-
-    #endregion
-
-    #region Scenes
-
-    public Transform sceneHolder;
-    public Transform menuScene;
-    public Transform gameScene;
-    Transform currentScene;
-
-    public void SwitchScene(string sceneName)
+    private class Stage
     {
-        foreach (Transform scene in sceneHolder) {
-            if (scene.name.Equals(sceneName)) scene.gameObject.SetActive(true);
-            else if (!scene.name.Equals("BackgroundClickCatcher")) scene.gameObject.SetActive(false);
+        public string name;
+        public string dialogMode;
+        public bool skippable;
+        public string dialogHeader;
+        public string doItText;
+        public string afterSkip;
+        public string[] availableTools;
+    }
+
+    List<Stage> stageList = new List<Stage>();
+    public TextAsset stagesJson;
+    int currentStage;
+
+    void StartStage()
+    {
+        // if relevant, sets up inner dialog
+        Stage stage = stageList[currentStage];
+        if (stage.skippable) {
+            dialogManager.OpenDialog(stage.dialogHeader,stage.doItText,stage.dialogMode);
         }
-        customizePanel.CloseCustomizePanel();
-        selectedItem = null;
-        itemToPlace = null;
+        else {
+            dialogManager.CloseDialog();
+            SetupStage(); // non-skippable stage, just setup stuff
+        }
+    }
+
+    void SetupStage()
+    {
+        // sets up tools panel and maybe other things
+        toolsPanel.DisplayTools(stageList[currentStage].availableTools);
+    }
+
+    void SkipStage()
+    {
+        for (int i = 0; i < stageList.Count; i++) {
+            if (stageList[i].name.Equals(stageList[currentStage].afterSkip)) {
+                currentStage = i;
+            }
+        }
+        StartStage();
     }
 
     #endregion
     
-    // Start is called before the first frame update
-    void Start()
-    {
-        currentScene = menuScene;
-        dialogManager.OpenDialog("I need to make a main menu first...", "OK! Let's get it done!","UI");
-    }
+    #region Pretty Version related
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (itemToPlace != null) {
-            Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            itemToPlace.transform.position = new Vector3(pos.x,pos.y,0f);
-
-            if (Input.GetMouseButtonDown(0)) {
-                itemToPlace = null;
-                customizePanel.OpenCustomizeOptions(selectedItem.name);
-            }
-        }
-    }
-
-    void SetSelectedItem(GameObject item)
-    {
-        if (selectedItem != null) selectedItem.GetComponent<SelectedDisplay>().ToggleActive(false);
-        selectedItem = item;
-        if (item != null) selectedItem.GetComponent<SelectedDisplay>().ToggleActive(true);
-    }
-
-
-    public void ToolClicked(string name)
-    {
-        Debug.Log(name);
-        GameObject prefab = GetItemPrefab(name);
-        Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        itemToPlace = Instantiate(prefab,new Vector3(pos.x,pos.y,0f),Quaternion.identity,currentScene);
-        itemToPlace.name = name;
-        if (selectedItem != null) customizePanel.CloseCustomizePanel();
-        SetSelectedItem(itemToPlace);
-    }
-
-    GameObject GetItemPrefab(string name)
-    {
-        if (prettyVersions.Contains(name)) name += "pretty";
-        return Resources.Load<GameObject>($"Tools/{name}");
-    }
+    HashSet<string> prettyVersions = new HashSet<string>();
 
     public void UnlockPrettyVersion(string itemName)
     {
@@ -125,11 +100,93 @@ public class EditorManager : MonoBehaviour
         }
     }
 
-    public void PlacedItemClicked(GameObject item)
+    #endregion
+
+    #region Scenes
+
+    public Transform sceneHolder;
+    public Transform menuScene;
+    public Transform gameScene;
+    Transform currentScene;
+
+    public void SwitchScene(string sceneName)
     {
-        if (itemToPlace != null) return; // nothing happens if currently dragging something
-        SetSelectedItem(item);
-        customizePanel.OpenCustomizeOptions(item.name);
+        foreach (Transform scene in sceneHolder) {
+            if (scene.name.Equals(sceneName)) scene.gameObject.SetActive(true);
+            else if (!scene.name.Equals("BackgroundClickCatcher")) scene.gameObject.SetActive(false);
+        }
+        customizePanel.CloseCustomizePanel();
+        selectedItem = null;
+        itemToPlace = null;
+    }
+
+    #endregion
+    
+    #region Unity Methods
+    
+    // Start is called before the first frame update
+    void Start()
+    {
+        currentScene = menuScene;
+        stageList = JsonReader.readJsonArray<Stage>(stagesJson.ToString());
+        currentStage = 0;
+        StartStage();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (itemToPlace != null) {
+            Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            itemToPlace.transform.position = new Vector3(pos.x,pos.y,0f);
+
+            if (Input.GetMouseButtonDown(0)) {
+                itemToPlace = null;
+                customizePanel.OpenCustomizeOptions(selectedItem.name);
+            }
+        }
+    }
+
+    #endregion
+
+    #region Helper Methods
+    
+    void SetSelectedItem(GameObject item)
+    {
+        if (selectedItem != null) selectedItem.GetComponent<SelectedDisplay>().ToggleActive(false);
+        selectedItem = item;
+        if (item != null) selectedItem.GetComponent<SelectedDisplay>().ToggleActive(true);
+    }
+
+    GameObject GetItemPrefab(string name)
+    {
+        if (prettyVersions.Contains(name)) name += "pretty";
+        return Resources.Load<GameObject>($"Tools/{name}");
+    }
+
+    #endregion
+    
+    #region Click Events
+
+    public void ToolClicked(string name)
+    {
+        Debug.Log(name);
+        GameObject prefab = GetItemPrefab(name);
+        Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        itemToPlace = Instantiate(prefab,new Vector3(pos.x,pos.y,0f),Quaternion.identity,currentScene);
+        itemToPlace.name = name;
+        if (selectedItem != null) customizePanel.CloseCustomizePanel();
+        SetSelectedItem(itemToPlace);
+    }
+
+    public void ClickedBackground()
+    {
+        // this might unselect item or something like that depending on circumstances
+        Debug.Log("Background clicked");
+        if (selectedItem != null) {
+            customizePanel.CloseCustomizePanel();
+            SetSelectedItem(null);
+        }
     }
 
     public void SelectedCustomizeOption(string name)
@@ -149,32 +206,28 @@ public class EditorManager : MonoBehaviour
         }
     }
 
-    public void ClickedBackground()
+    public void PlacedItemClicked(GameObject item)
     {
-        // this might unselect item or something like that depending on circumstances
-        Debug.Log("Background clicked");
-        if (selectedItem != null) {
-            customizePanel.CloseCustomizePanel();
-            SetSelectedItem(null);
-        }
+        if (itemToPlace != null) return; // nothing happens if currently dragging something
+        SetSelectedItem(item);
+        customizePanel.OpenCustomizeOptions(item.name);
     }
-
-    #region Click Events
 
     public void ClickedDoIt()
     {
         dialogManager.CloseDialog();
-        toolsPanel.AddToolToPanel("button");
+        SetupStage();
     }
 
     public void ClickedSkipIt()
     {
-        dialogManager.CloseDialog();
+        SkipStage();
     }
 
     public void ClickedNextStage()
     {
-        
+        currentStage += 1;
+        StartStage();
     }
 
     #endregion
