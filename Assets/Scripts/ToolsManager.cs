@@ -106,6 +106,7 @@ public class ToolsManager : MonoBehaviour
         
         List<string> options = new List<string>();
         options.Add("move");
+        options.Add("remove");
         // add more options
         foreach (string op in options) {
             Sprite img = Resources.Load<Sprite>($"CustomizeOptions/{op}");
@@ -120,6 +121,12 @@ public class ToolsManager : MonoBehaviour
         switch (name) {
             case "move":
                 itemToPlace = selectedItem;
+                break;
+            case "remove":
+                Destroy(selectedItem);
+                selectedItem = null;
+                itemToPlace = null;
+                a.Play("closecustomize");
                 break;
             default:
                 break;
