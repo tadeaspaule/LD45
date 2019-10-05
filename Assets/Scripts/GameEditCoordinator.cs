@@ -14,9 +14,12 @@ public class GameEditCoordinator : MonoBehaviour
     public void ClickedSwitchButton()
     {
         if (isEditing) {
+            if (!editorManager.hasPlayer) return;
             // switching to game mode
+            editorManager.DisableAllEditorUI();
             editorManager.gameObject.SetActive(false);
             gameManager.gameObject.SetActive(true);
+            gameManager.Setup(editorManager.currentScene);
             toolPanelAnims.Play("closetools");
             btnText.text = "Back to editing";
         }

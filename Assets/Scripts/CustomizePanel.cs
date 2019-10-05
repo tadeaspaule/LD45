@@ -16,6 +16,7 @@ public class CustomizePanel : MonoBehaviour
 
     public void CloseCustomizePanel()
     {
+        if (!customizeOpen) return;
         panelAnimation.Play("closecustomize");
         customizeOpen = false;
     }

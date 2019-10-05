@@ -9,6 +9,7 @@ public class EditorManager : MonoBehaviour
     #region Other Managers
 
     public DialogManager dialogManager;
+    public GameManager gameManager;
 
     #endregion
     
@@ -111,17 +112,25 @@ public class EditorManager : MonoBehaviour
     public Transform sceneHolder;
     public Transform menuScene;
     public Transform gameScene;
-    Transform currentScene;
+    bool isInMenu = false;
+    int currentLevel = 0;
+    public Transform currentScene;
 
-    public void SwitchScene(string sceneName)
+    public void SwitchScene(bool switchToMenu)
     {
-        foreach (Transform scene in sceneHolder) {
-            if (scene.name.Equals(sceneName)) scene.gameObject.SetActive(true);
-            else if (!scene.name.Equals("BackgroundClickCatcher")) scene.gameObject.SetActive(false);
-        }
+        menuScene.gameObject.SetActive(switchToMenu);
+        gameScene.gameObject.SetActive(!switchToMenu);
+        if (switchToMenu) currentScene = menuScene;
+        else SwitchToLevel(currentLevel);
         customizePanel.CloseCustomizePanel();
         selectedItem = null;
         itemToPlace = null;
+    }
+
+    public void SwitchToLevel(int level)
+    {
+        currentLevel = level;
+        currentScene = gameScene.GetChild(level);
     }
 
     #endregion
@@ -131,7 +140,7 @@ public class EditorManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        currentScene = gameScene;
+        SwitchScene(false);
         stageList = JsonReader.readJsonArray<Stage>(stagesJson.ToString());
         // currentStage = 0;
         // StartStage();
@@ -158,6 +167,12 @@ public class EditorManager : MonoBehaviour
     #endregion
 
     #region Helper Methods
+
+    public void DisableAllEditorUI()
+    {
+        if (selectedItem != null) selectedItem.GetComponent<SelectedDisplay>().ToggleActive(false);
+        customizePanel.CloseCustomizePanel();
+    }
     
     void SetSelectedItem(GameObject item)
     {
