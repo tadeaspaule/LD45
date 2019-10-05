@@ -20,6 +20,7 @@ public class ItemClickListener : MonoBehaviour
 
     public void ItemClicked()
     {
+        if (!editorManager.gameObject.activeSelf) return;
         Debug.Log("Clicked an item");
         if (useParent) editorManager.PlacedItemClicked(transform.parent.gameObject); 
         else editorManager.PlacedItemClicked(this.gameObject);
