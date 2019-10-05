@@ -144,7 +144,11 @@ public class EditorManager : MonoBehaviour
         // SwitchScene(false);
         stageList = JsonReader.readJsonArray<Stage>(stagesJson.ToString());
         currentStage = 0;
-        StartStage();
+        // StartStage();
+        toolsPanel.AddToolToPanel("player");
+        toolsPanel.AddToolToPanel("platform");
+        toolsPanel.AddToolToPanel("enemyshooting");
+        toolsPanel.AddToolToPanel("enemywalking");
     }
 
     // Update is called once per frame

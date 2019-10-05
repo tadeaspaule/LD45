@@ -14,10 +14,10 @@ public class GameManager : MonoBehaviour
 
     private class EnemyWithPosition
     {
-        public Enemy enemy;
+        public EnemyBase enemy;
         public Vector3 originalPosition;
 
-        public EnemyWithPosition(Enemy enemy, Vector3 pos)
+        public EnemyWithPosition(EnemyBase enemy, Vector3 pos)
         {
             this.enemy = enemy;
             this.originalPosition = pos;
@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
                 Debug.Log("Found player");
             }
             else if (child.gameObject.name.StartsWith("enemy")) {
-                Enemy enemy = child.GetComponent<Enemy>();
+                EnemyBase enemy = child.GetComponent<EnemyBase>();
                 enemy.gameManager = this;
                 enemies.Add(new EnemyWithPosition(enemy,child.position));
                 enemy.SwitchToGame();
@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviour
         // }
     }
 
-    public void EnemyDied(Enemy enemy)
+    public void EnemyDied(EnemyBase enemy)
     {
         // enemies.RemoveAll(ep => ep.enemy.Equals(enemy));
         enemy.gameObject.SetActive(false);
@@ -81,6 +81,7 @@ public class GameManager : MonoBehaviour
 
     public void PlayerDied()
     {
+        Debug.Log("Player died");
         // reset positions
         ResetPositions();
     }
@@ -122,7 +123,7 @@ public class GameManager : MonoBehaviour
             }
         }
         foreach (EnemyWithPosition ewp in enemies) {
-            if (ewp.enemy.gameObject.activeSelf) ewp.enemy.Move();
+            if (ewp.enemy.gameObject != null && ewp.enemy.gameObject.activeSelf) ewp.enemy.Act();
         }
     }    
 }

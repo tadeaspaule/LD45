@@ -2,44 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy : EnemyBase
 {
     float speed = 2f;
-    Rigidbody2D rb;
     bool goingRight = true;
-    float originalGravity;
-    public GameManager gameManager;
     
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-        originalGravity = rb.gravityScale;
-        SwitchToEdit();
-    }
-
-    public void SwitchToEdit()
-    {
-        rb.gravityScale = 0f;
-    }
-
-    public void SwitchToGame()
-    {
-        rb.gravityScale = originalGravity;
+        base.Setup();     
     }
 
     void OnCollisionEnter2D(Collision2D other) {
+        BaseCollisionChecks(other);
         if (other.gameObject.tag.Equals("obstacle")) {
             Flip();
-        }
-        else if (other.gameObject.tag.Equals("death")) {
-            // spikes / bottom of screen / etc
-            gameManager.EnemyDied(this);
-            return;
         }
     }
 
     void OnTriggerEnter2D(Collider2D other) {
+        BaseTriggerChecks(other);
         if (other.gameObject.tag.Equals("platformedge")) {
             Flip();
         }
@@ -50,9 +32,9 @@ public class Enemy : MonoBehaviour
         goingRight = !goingRight;
     }
 
-    public void Move()
+    public override void Act()
     {
         float mult = goingRight ? 1f : -1f;
-        transform.position += new Vector3(1.5f*mult*Time.deltaTime,0f,0f);
+        transform.position += new Vector3(speed*mult*Time.deltaTime,0f,0f);
     }
 }
