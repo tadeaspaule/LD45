@@ -1,14 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class SelectionItem : MonoBehaviour
 {    
+    Image image;
+    ToolsManager tm;
+    
     // Start is called before the first frame update
     void Start()
     {
-        
+        image = GetComponent<Image>();
+        tm = FindObjectOfType<ToolsManager>();
+        MouseLeft();
     }
 
     // Update is called once per frame
@@ -20,10 +25,14 @@ public class SelectionItem : MonoBehaviour
     public void MouseEntered()
     {
         transform.localScale = new Vector3(1.1f,1.1f,1.1f);
+        image.color = Color.white;
+        tm.UpdateHoverText(this.name);
     }
 
     public void MouseLeft()
     {
         transform.localScale = Vector3.one;
+        image.color = new Color(0.8f,0.8f,0.8f);
+        tm.UpdateHoverText("");
     }
 }
