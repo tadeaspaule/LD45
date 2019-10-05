@@ -54,7 +54,7 @@ public class ToolsManager : MonoBehaviour
 
             if (Input.GetMouseButtonDown(0)) {
                 itemToPlace = null;
-                Debug.Log("letting go");
+                OpenCustomizeOptions(selectedItem.name);
             }
         }
     }
@@ -68,6 +68,13 @@ public class ToolsManager : MonoBehaviour
         go.name = name;
     }
 
+    void SetSelectedItem(GameObject item)
+    {
+        if (selectedItem != null) selectedItem.GetComponent<SelectedDisplay>().ToggleActive(false);
+        selectedItem = item;
+        if (item != null) selectedItem.GetComponent<SelectedDisplay>().ToggleActive(true);
+    }
+
 
     public void ToolClicked(string name)
     {
@@ -76,7 +83,7 @@ public class ToolsManager : MonoBehaviour
         Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         itemToPlace = Instantiate(prefab,new Vector3(pos.x,pos.y,0f),Quaternion.identity);
         if (selectedItem != null) a.Play("closecustomize");
-        selectedItem = itemToPlace;
+        SetSelectedItem(itemToPlace);
     }
 
     public void UpdateHoverText(string txt)
@@ -92,12 +99,11 @@ public class ToolsManager : MonoBehaviour
     public void PlacedItemClicked(GameObject item)
     {
         if (itemToPlace != null) return; // nothing happens if currently dragging something
-        selectedItem = item;
-        SetupCustomizeOptions(item.name);
-        a.Play("opencustomize");
+        SetSelectedItem(item);
+        OpenCustomizeOptions(item.name);
     }
 
-    void SetupCustomizeOptions(string itemName)
+    void OpenCustomizeOptions(string itemName)
     {
         // delete any customize options that might be left over in the container
         foreach (Transform child in customizeOptionsContainer) {
@@ -114,6 +120,7 @@ public class ToolsManager : MonoBehaviour
             optionAdded.GetComponent<Image>().sprite = img;
             optionAdded.name = op;
         }
+        a.Play("opencustomize");
     }
 
     public void SelectedCustomizeOption(string name)
@@ -124,7 +131,7 @@ public class ToolsManager : MonoBehaviour
                 break;
             case "remove":
                 Destroy(selectedItem);
-                selectedItem = null;
+                SetSelectedItem(null);
                 itemToPlace = null;
                 a.Play("closecustomize");
                 break;
@@ -139,7 +146,7 @@ public class ToolsManager : MonoBehaviour
         Debug.Log("Background clicked");
         if (selectedItem != null) {
             a.Play("closecustomize");
-            selectedItem = null;
+            SetSelectedItem(null);
         }
     }
 }

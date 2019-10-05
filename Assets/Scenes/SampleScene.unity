@@ -245,6 +245,7 @@ MonoBehaviour:
   a: {fileID: 103090680}
   customizePrefab: {fileID: 1245188929099517269, guid: f0e93bf1b69ce8142aa1c6aef763473f,
     type: 3}
+  selectedPointer: {fileID: 0}
 --- !u!4 &148642982
 Transform:
   m_ObjectHideFlags: 0
