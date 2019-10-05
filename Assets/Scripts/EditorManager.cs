@@ -137,6 +137,8 @@ public class EditorManager : MonoBehaviour
         // StartStage();
         toolsPanel.AddToolToPanel("platform");
         toolsPanel.AddToolToPanel("player");
+        toolsPanel.AddToolToPanel("start");
+        toolsPanel.AddToolToPanel("end");
     }
 
     // Update is called once per frame
