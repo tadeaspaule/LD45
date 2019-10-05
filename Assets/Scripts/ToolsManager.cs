@@ -6,9 +6,6 @@ using TMPro;
 
 public class ToolsManager : MonoBehaviour
 {
-    
-    public TextMeshProUGUI testText;
-
     #region Tools Panel
 
     public Transform toolsPanel;
@@ -71,7 +68,6 @@ public class ToolsManager : MonoBehaviour
     }
 
     #endregion
-
     
     // Start is called before the first frame update
     void Start()
