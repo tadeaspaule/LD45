@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour
     Rigidbody2D rb;
     bool goingRight = true;
     float originalGravity;
+    public GameManager gameManager;
     
     // Start is called before the first frame update
     void Start()
@@ -30,6 +31,11 @@ public class Enemy : MonoBehaviour
     void OnCollisionEnter2D(Collision2D other) {
         if (other.gameObject.tag.Equals("obstacle")) {
             Flip();
+        }
+        else if (other.gameObject.tag.Equals("death")) {
+            // spikes / bottom of screen / etc
+            gameManager.EnemyDied(this);
+            return;
         }
     }
 

@@ -37,6 +37,11 @@ public class Player : MonoBehaviour
         if (other.gameObject.name.StartsWith("platform")) {
             inJump = false;
         }
+        else if (other.gameObject.tag.Equals("death")) {
+            // spikes / bottom of screen / etc
+            gameManager.PlayerDied();
+            return;
+        }
         else if (other.gameObject.name.StartsWith("enemy")) {
             Vector3 enemyPos = other.gameObject.transform.position;
             if (Mathf.Abs(transform.position.x-enemyPos.x) < 0.5f && transform.position.y > enemyPos.y) {

@@ -50,6 +50,7 @@ public class GameManager : MonoBehaviour
             }
             else if (child.gameObject.name.StartsWith("enemy")) {
                 Enemy enemy = child.GetComponent<Enemy>();
+                enemy.gameManager = this;
                 enemies.Add(new EnemyWithPosition(enemy,child.position));
                 enemy.SwitchToGame();
                 Debug.Log("Found an enemy");
