@@ -155,9 +155,22 @@ public class EditorManager : MonoBehaviour
     
     void SetSelectedItem(GameObject item)
     {
-        if (selectedItem != null) selectedItem.GetComponent<SelectedDisplay>().ToggleActive(false);
+        if (selectedItem != null) {
+            selectedItem.GetComponent<SelectedDisplay>().ToggleActive(false);
+            ToggleItemResizers(false);
+        }
         selectedItem = item;
         if (item != null) selectedItem.GetComponent<SelectedDisplay>().ToggleActive(true);
+    }
+
+    void ToggleItemResizers(bool active)
+    {
+        // turn off resizers
+        foreach (Transform child in selectedItem.transform) {
+            if (child.name.Equals("Resizers")) {
+                child.gameObject.SetActive(active);
+            }
+        }
     }
 
     GameObject GetItemPrefab(string name)
@@ -193,6 +206,7 @@ public class EditorManager : MonoBehaviour
 
     public void SelectedCustomizeOption(string name)
     {
+        ToggleItemResizers(false);
         switch (name) {
             case "move":
                 itemToPlace = selectedItem;
@@ -202,6 +216,9 @@ public class EditorManager : MonoBehaviour
                 SetSelectedItem(null);
                 itemToPlace = null;
                 customizePanel.CloseCustomizePanel();
+                break;
+            case "resize":
+                ToggleItemResizers(true);
                 break;
             default:
                 break;
