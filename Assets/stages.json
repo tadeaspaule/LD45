@@ -19,7 +19,7 @@
     },
     {
         "name": "first level",
-        "availableTools": ["platform", "player", "start", "end"],
+        "availableTools": ["platform", "player", "end"],
         "skippable": false,
         "dialogHeader": "BLANK",
         "doItText": "BLANK",
@@ -27,7 +27,7 @@
     },
     {
         "name": "first level pretty",
-        "availableTools": ["platform", "player", "start", "end"],
+        "availableTools": ["platform", "player", "end"],
         "skippable": true,
         "dialogMode": "Art",
         "dialogHeader": "Those models look awful, I should work on them a bit...",
@@ -36,7 +36,7 @@
     },
     {
         "name": "second level",
-        "availableTools": ["platform", "player", "start", "end", "enemywalking"],
+        "availableTools": ["platform", "player", "end", "enemywalking"],
         "skippable": false,
         "dialogHeader": "BLANK",
         "doItText": "BLANK",
@@ -44,7 +44,7 @@
     },
     {
         "name": "more enemies",
-        "availableTools": ["platform", "player", "start", "end", "enemywalking", "enemyshooting"],
+        "availableTools": ["platform", "player", "end", "enemywalking", "enemyshooting"],
         "skippable": true,
         "dialogMode": "Content",
         "dialogHeader": "I should add some more enemy choices, this might get boring...",
@@ -53,7 +53,7 @@
     },
     {
         "name": "prettier enemies",
-        "availableTools": ["platform", "player", "start", "end", "enemywalking", "enemyshooting"],
+        "availableTools": ["platform", "player", "end", "enemywalking", "enemyshooting"],
         "skippable": true,
         "dialogMode": "Art",
         "dialogHeader": "Yeaaah, I think those enemy models need some work...",
@@ -62,7 +62,7 @@
     },
     {
         "name": "more levels",
-        "availableTools": ["platform", "player", "start", "end", "enemywalking", "enemyshooting"],
+        "availableTools": ["platform", "player", "end", "enemywalking", "enemyshooting"],
         "skippable": false,
         "dialogHeader": "BLANK",
         "doItText": "BLANK",

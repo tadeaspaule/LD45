@@ -19,7 +19,6 @@ public class EditorManager : MonoBehaviour
     public CustomizePanel customizePanel;
 
     public bool hasPlayer = false;
-    public bool hasStart = false;
     public bool hasEnd = false;
 
     GameObject itemToPlace = null; // item you're moving
@@ -203,10 +202,6 @@ public class EditorManager : MonoBehaviour
             if (hasPlayer) return;
             hasPlayer = true;
         }
-        if (name.Equals("start")) {
-            if (hasStart) return;
-            hasStart = true;
-        }
         if (name.Equals("end")) {
             if (hasEnd) return;
             hasEnd = true;
@@ -239,7 +234,6 @@ public class EditorManager : MonoBehaviour
                 break;
             case "remove":
                 if (selectedItem.name.Equals("player")) hasPlayer = false;
-                if (selectedItem.name.Equals("start")) hasStart = false;
                 if (selectedItem.name.Equals("end")) hasEnd = false;
                 Destroy(selectedItem);
                 toolsPanel.UpdateUseTexts();

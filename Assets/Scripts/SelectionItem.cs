@@ -29,7 +29,7 @@ public class SelectionItem : MonoBehaviour
 
     public void MouseEntered()
     {
-        transform.localScale = new Vector3(1.1f,1.1f,1.1f);
+        transform.localScale = new Vector3(1.5f,1.5f,1f);
         image.color = Color.white;
         toolsPanel.UpdateHoverText(this.name);
     }

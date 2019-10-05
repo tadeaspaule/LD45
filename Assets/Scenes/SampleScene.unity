@@ -151,7 +151,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 200}
-  m_SizeDelta: {x: 800, y: 200}
+  m_SizeDelta: {x: 800, y: 170}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!111 &103090680
 Animation:
@@ -288,7 +288,6 @@ MonoBehaviour:
   toolsPanel: {fileID: 1360076482}
   customizePanel: {fileID: 103090683}
   hasPlayer: 0
-  hasStart: 0
   hasEnd: 0
   stagesJson: {fileID: 4900000, guid: 78e305eecc2363e4b884ec3b7191a306, type: 3}
   sceneHolder: {fileID: 2106010342}
@@ -1021,7 +1020,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 150}
+  m_SizeDelta: {x: 0, y: 120}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &452861513
 MonoBehaviour:
@@ -1080,7 +1079,7 @@ MonoBehaviour:
   m_ChildAlignment: 4
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 130, y: 130}
+  m_CellSize: {x: 70, y: 70}
   m_Spacing: {x: 20, y: 0}
   m_Constraint: 2
   m_ConstraintCount: 1
@@ -1477,11 +1476,11 @@ RectTransform:
   m_Father: {fileID: 447095798}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 375}
-  m_SizeDelta: {x: 200, y: 50}
-  m_Pivot: {x: 0, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 120}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &767280993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1530,8 +1529,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 30
-  m_fontSizeBase: 30
+  m_fontSize: 45
+  m_fontSizeBase: 45
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1623,7 +1622,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &916157571
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2768,10 +2767,10 @@ RectTransform:
   m_Father: {fileID: 447095798}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 800}
+  m_SizeDelta: {x: 150, y: 0}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1360076479
 MonoBehaviour:
@@ -2793,7 +2792,7 @@ MonoBehaviour:
   m_ChildAlignment: 4
   m_StartCorner: 0
   m_StartAxis: 1
-  m_CellSize: {x: 160, y: 160}
+  m_CellSize: {x: 90, y: 90}
   m_Spacing: {x: 0, y: 20}
   m_Constraint: 1
   m_ConstraintCount: 1
@@ -2851,6 +2850,19 @@ MonoBehaviour:
   selectionPrefab: {fileID: 2997373402277375831, guid: 3b50fbcc6a72b044186e7c9049b2032c,
     type: 3}
   hoverText: {fileID: 767280993}
+  names:
+  - showName: Player
+    internalName: player
+  - showName: Platform
+    internalName: platform
+  - showName: Walking enemy
+    internalName: enemywalking
+  - showName: Shooting enemy
+    internalName: enemyshooting
+  - showName: Button
+    internalName: button
+  - showName: End of the level
+    internalName: end
 --- !u!111 &1360076483
 Animation:
   m_ObjectHideFlags: 0
