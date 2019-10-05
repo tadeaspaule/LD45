@@ -140,14 +140,11 @@ public class EditorManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SwitchScene(false);
+        currentScene = gameScene.GetChild(0);
+        // SwitchScene(false);
         stageList = JsonReader.readJsonArray<Stage>(stagesJson.ToString());
-        // currentStage = 0;
-        // StartStage();
-        toolsPanel.AddToolToPanel("platform");
-        toolsPanel.AddToolToPanel("player");
-        toolsPanel.AddToolToPanel("start");
-        toolsPanel.AddToolToPanel("end");
+        currentStage = 0;
+        StartStage();
     }
 
     // Update is called once per frame
@@ -197,6 +194,7 @@ public class EditorManager : MonoBehaviour
     GameObject GetItemPrefab(string name)
     {
         if (prettyVersions.Contains(name)) name += "pretty";
+        Debug.Log($"Getting item with name {name}");
         return Resources.Load<GameObject>($"Tools/{name}");
     }
 
@@ -255,8 +253,11 @@ public class EditorManager : MonoBehaviour
                 itemToPlace = null;
                 customizePanel.CloseCustomizePanel();
                 break;
-            case "resize":
-                ToggleItemResizers(true);
+            case "widen":
+                selectedItem.transform.GetChild(1).localScale += new Vector3(0.3f,0f,0f);
+                break;
+            case "shrink":
+                selectedItem.transform.GetChild(1).localScale -= new Vector3(0.3f,0f,0f);
                 break;
             default:
                 break;

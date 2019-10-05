@@ -32,11 +32,11 @@
         "dialogMode": "Art",
         "dialogHeader": "Those models look awful, I should work on them a bit...",
         "doItText": "Let me show you my amazing drawing skills!",
-        "afterSkip": "more second level"
+        "afterSkip": "second level"
     },
     {
         "name": "second level",
-        "availableTools": ["platform", "player", "start", "end", "walkingenemy"],
+        "availableTools": ["platform", "player", "start", "end", "enemywalking"],
         "skippable": false,
         "dialogHeader": "BLANK",
         "doItText": "BLANK",
@@ -44,7 +44,7 @@
     },
     {
         "name": "more enemies",
-        "availableTools": ["platform", "player", "start", "end", "walkingenemy", "shootingenemy"],
+        "availableTools": ["platform", "player", "start", "end", "enemywalking", "enemyshooting"],
         "skippable": true,
         "dialogMode": "Content",
         "dialogHeader": "I should add some more enemy choices, this might get boring...",
@@ -53,7 +53,7 @@
     },
     {
         "name": "prettier enemies",
-        "availableTools": ["platform", "player", "start", "end", "walkingenemy", "shootingenemy"],
+        "availableTools": ["platform", "player", "start", "end", "enemywalking", "enemyshooting"],
         "skippable": true,
         "dialogMode": "Art",
         "dialogHeader": "Yeaaah, I think those enemy models need some work...",
@@ -62,7 +62,7 @@
     },
     {
         "name": "more levels",
-        "availableTools": ["platform", "player", "start", "end", "walkingenemy", "shootingenemy"],
+        "availableTools": ["platform", "player", "start", "end", "enemywalking", "enemyshooting"],
         "skippable": false,
         "dialogHeader": "BLANK",
         "doItText": "BLANK",

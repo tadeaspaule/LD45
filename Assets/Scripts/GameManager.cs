@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     
     Player player;
 
+    List<Enemy> enemies = new List<Enemy>();
+
     List<string> leftMoves = new List<string>(new string[]{"left", "a"});
     List<string> rightMoves = new List<string>(new string[]{"right", "d"});
     List<string> upMoves = new List<string>(new string[]{"up", "space", "w"});
@@ -28,6 +30,10 @@ public class GameManager : MonoBehaviour
             if (child.gameObject.name.Equals("player")) {
                 player = child.GetComponent<Player>();
                 Debug.Log("Found player");
+            }
+            else if (child.gameObject.name.StartsWith("enemy")) {
+                enemies.Add(child.GetComponent<Enemy>());
+                Debug.Log("Found an enemy");
                 break;
             }
         }
@@ -54,7 +60,8 @@ public class GameManager : MonoBehaviour
                 break;
             }
         }
-    }
-
-    
+        foreach (Enemy enemy in enemies) {
+            enemy.Move();
+        }
+    }    
 }

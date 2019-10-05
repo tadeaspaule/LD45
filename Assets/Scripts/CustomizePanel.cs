@@ -44,7 +44,8 @@ public class CustomizePanel : MonoBehaviour
         options.Add("remove");
         // add more options
         if (itemName.Equals("platform")) {
-            options.Add("resize");
+            options.Add("widen");
+            options.Add("shrink");
         }
         foreach (string op in options) {
             Sprite img = Resources.Load<Sprite>($"CustomizeOptions/{op}");
