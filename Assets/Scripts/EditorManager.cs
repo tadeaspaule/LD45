@@ -172,5 +172,10 @@ public class EditorManager : MonoBehaviour
         dialogManager.CloseDialog();
     }
 
+    public void ClickedNextStage()
+    {
+        
+    }
+
     #endregion
 }
