@@ -19,8 +19,11 @@ public class ToolsManager : MonoBehaviour
 
     #region Customize Panel
 
-    public GameObject customizePanel;
+    public Transform customizeOptionsContainer;
+    public TextMeshProUGUI customizeHeader;
     public Animation a;
+    
+    public GameObject customizePrefab;
 
     #endregion
 
@@ -72,6 +75,8 @@ public class ToolsManager : MonoBehaviour
         GameObject prefab = Resources.Load<GameObject>($"Tools/{name}");
         Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         itemToPlace = Instantiate(prefab,new Vector3(pos.x,pos.y,0f),Quaternion.identity);
+        if (selectedItem != null) a.Play("closecustomize");
+        selectedItem = itemToPlace;
     }
 
     public void UpdateHoverText(string txt)
@@ -79,11 +84,46 @@ public class ToolsManager : MonoBehaviour
         hoverText.text = txt;
     }
 
+    public void UpdateCustomizeHoverText(string txt)
+    {
+        customizeHeader.text = txt;
+    }
+
     public void PlacedItemClicked(GameObject item)
     {
         if (itemToPlace != null) return; // nothing happens if currently dragging something
         selectedItem = item;
+        SetupCustomizeOptions(item.name);
         a.Play("opencustomize");
+    }
+
+    void SetupCustomizeOptions(string itemName)
+    {
+        // delete any customize options that might be left over in the container
+        foreach (Transform child in customizeOptionsContainer) {
+            Destroy(child.gameObject);
+        }
+        
+        List<string> options = new List<string>();
+        options.Add("move");
+        // add more options
+        foreach (string op in options) {
+            Sprite img = Resources.Load<Sprite>($"CustomizeOptions/{op}");
+            GameObject optionAdded = Instantiate(customizePrefab,Vector3.zero,Quaternion.identity,customizeOptionsContainer);
+            optionAdded.GetComponent<Image>().sprite = img;
+            optionAdded.name = op;
+        }
+    }
+
+    public void SelectedCustomizeOption(string name)
+    {
+        switch (name) {
+            case "move":
+                itemToPlace = selectedItem;
+                break;
+            default:
+                break;
+        }
     }
 
     public void ClickedBackground()

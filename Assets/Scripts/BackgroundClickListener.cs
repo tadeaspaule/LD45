@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BackgroundClickListener : MonoBehaviour
+public class BackgroundClickListener : BaseClickListener
 {
     ToolsManager toolsManager;
 
@@ -13,6 +13,7 @@ public class BackgroundClickListener : MonoBehaviour
     
     void OnMouseDown()
     {
+        if (IsPointerOverUIObject()) return;
         toolsManager.ClickedBackground();
     }
 }
