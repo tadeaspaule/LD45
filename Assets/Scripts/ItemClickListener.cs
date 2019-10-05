@@ -5,6 +5,7 @@ using UnityEngine;
 public class ItemClickListener : MonoBehaviour
 {
     EditorManager editorManager;
+    public bool useParent;
     
     // Start is called before the first frame update
     void Start()
@@ -14,6 +15,7 @@ public class ItemClickListener : MonoBehaviour
 
     void OnMouseDown()
     {
-        editorManager.PlacedItemClicked(this.gameObject);  
+        if (useParent) editorManager.PlacedItemClicked(transform.parent.gameObject); 
+        else editorManager.PlacedItemClicked(this.gameObject);
     }
 }

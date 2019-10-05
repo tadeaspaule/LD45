@@ -127,10 +127,12 @@ public class EditorManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        currentScene = menuScene;
+        currentScene = gameScene;
         stageList = JsonReader.readJsonArray<Stage>(stagesJson.ToString());
-        currentStage = 0;
-        StartStage();
+        // currentStage = 0;
+        // StartStage();
+        toolsPanel.AddToolToPanel("platform");
+        toolsPanel.AddToolToPanel("button");
     }
 
     // Update is called once per frame
@@ -170,7 +172,7 @@ public class EditorManager : MonoBehaviour
 
     public void ToolClicked(string name)
     {
-        Debug.Log(name);
+        Debug.Log($"Clicked tool {name}");
         GameObject prefab = GetItemPrefab(name);
         Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         itemToPlace = Instantiate(prefab,new Vector3(pos.x,pos.y,0f),Quaternion.identity,currentScene);

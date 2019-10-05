@@ -42,6 +42,9 @@ public class CustomizePanel : MonoBehaviour
         options.Add("move");
         options.Add("remove");
         // add more options
+        if (itemName.Equals("platform")) {
+            options.Add("resize");
+        }
         foreach (string op in options) {
             Sprite img = Resources.Load<Sprite>($"CustomizeOptions/{op}");
             GameObject optionAdded = Instantiate(customizePrefab,Vector3.zero,Quaternion.identity,customizeOptionsContainer);
