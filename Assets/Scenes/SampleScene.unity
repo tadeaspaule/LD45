@@ -294,7 +294,7 @@ MonoBehaviour:
   sceneHolder: {fileID: 2106010342}
   menuScene: {fileID: 128539422}
   gameScene: {fileID: 1101224650}
-  currentScene: {fileID: 0}
+  currentScene: {fileID: 1622312276}
 --- !u!4 &148642982
 Transform:
   m_ObjectHideFlags: 0

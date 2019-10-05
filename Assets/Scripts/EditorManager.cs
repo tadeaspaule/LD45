@@ -123,7 +123,7 @@ public class EditorManager : MonoBehaviour
         if (switchToMenu) currentScene = menuScene;
         else SwitchToLevel(currentLevel);
         customizePanel.CloseCustomizePanel();
-        selectedItem = null;
+        SetSelectedItem(null);
         itemToPlace = null;
     }
 
@@ -155,6 +155,7 @@ public class EditorManager : MonoBehaviour
             itemToPlace.transform.position = new Vector3(pos.x,pos.y,0f);
 
             if (Input.GetMouseButtonDown(0)) {
+                selectedItem = itemToPlace;
                 itemToPlace = null;
                 customizePanel.OpenCustomizeOptions(selectedItem.name);
             }
@@ -175,20 +176,9 @@ public class EditorManager : MonoBehaviour
     {
         if (selectedItem != null) {
             selectedItem.GetComponent<SelectedDisplay>().ToggleActive(false);
-            ToggleItemResizers(false);
         }
         selectedItem = item;
         if (item != null) selectedItem.GetComponent<SelectedDisplay>().ToggleActive(true);
-    }
-
-    void ToggleItemResizers(bool active)
-    {
-        // turn off resizers
-        foreach (Transform child in selectedItem.transform) {
-            if (child.name.Equals("Resizers")) {
-                child.gameObject.SetActive(active);
-            }
-        }
     }
 
     GameObject GetItemPrefab(string name)
@@ -204,6 +194,7 @@ public class EditorManager : MonoBehaviour
 
     public void ToolClicked(string name)
     {
+        if (itemToPlace != null) return;
         if (name.Equals("player")) {
             if (hasPlayer) return;
             hasPlayer = true;
@@ -238,7 +229,6 @@ public class EditorManager : MonoBehaviour
 
     public void SelectedCustomizeOption(string name)
     {
-        ToggleItemResizers(false);
         switch (name) {
             case "move":
                 itemToPlace = selectedItem;
@@ -266,7 +256,9 @@ public class EditorManager : MonoBehaviour
 
     public void PlacedItemClicked(GameObject item)
     {
+        Debug.Log("Clicked placed item");
         if (itemToPlace != null) return; // nothing happens if currently dragging something
+        Debug.Log("Clicked placed item part 2");
         SetSelectedItem(item);
         customizePanel.OpenCustomizeOptions(item.name);
     }

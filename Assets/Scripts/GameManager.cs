@@ -10,8 +10,22 @@ public class GameManager : MonoBehaviour
     public Transform levelContainer;
     
     Player player;
+    Vector3 originalPlayerPosition;
 
-    List<Enemy> enemies = new List<Enemy>();
+    private class EnemyWithPosition
+    {
+        public Enemy enemy;
+        public Vector3 originalPosition;
+
+        public EnemyWithPosition(Enemy enemy, Vector3 pos)
+        {
+            this.enemy = enemy;
+            this.originalPosition = pos;
+        }
+    }
+
+    List<EnemyWithPosition> enemies = new List<EnemyWithPosition>();
+    List<Platform> platforms = new List<Platform>();
 
     List<string> leftMoves = new List<string>(new string[]{"left", "a"});
     List<string> rightMoves = new List<string>(new string[]{"right", "d"});
@@ -29,13 +43,59 @@ public class GameManager : MonoBehaviour
         foreach (Transform child in levelContainer) {
             if (child.gameObject.name.Equals("player")) {
                 player = child.GetComponent<Player>();
+                player.SwitchToGame();
+                originalPlayerPosition = child.position;
+                player.gameManager = this;
                 Debug.Log("Found player");
             }
             else if (child.gameObject.name.StartsWith("enemy")) {
-                enemies.Add(child.GetComponent<Enemy>());
+                Enemy enemy = child.GetComponent<Enemy>();
+                enemies.Add(new EnemyWithPosition(enemy,child.position));
+                enemy.SwitchToGame();
                 Debug.Log("Found an enemy");
-                break;
             }
+            // else if (child.gameObject.name.StartsWith("platform")) {
+            //     child.GetComponentInChildren<Platform>().SwitchToGame();
+            // }
+        }
+    }
+
+    public void SwitchToEdit()
+    {
+        ResetPositions();
+        player.SwitchToEdit();
+        foreach (EnemyWithPosition ewp in enemies) {
+            ewp.enemy.SwitchToEdit();
+        }
+        // foreach (Platform platform in platforms) {
+        //     platform.SwitchToEdit();
+        // }
+    }
+
+    public void EnemyDied(Enemy enemy)
+    {
+        // enemies.RemoveAll(ep => ep.enemy.Equals(enemy));
+        enemy.gameObject.SetActive(false);
+    }
+
+    public void PlayerDied()
+    {
+        // reset positions
+        ResetPositions();
+    }
+
+    void ResetPositions()
+    {
+        player.transform.position = originalPlayerPosition;
+        Rigidbody2D rbp = player.gameObject.GetComponent<Rigidbody2D>();
+        rbp.inertia = 0f;
+        rbp.velocity = Vector2.zero;
+        foreach (EnemyWithPosition ewp in enemies) {
+            ewp.enemy.gameObject.SetActive(true);
+            Rigidbody2D rb = ewp.enemy.gameObject.GetComponent<Rigidbody2D>();
+            rb.inertia = 0f;
+            rb.velocity = Vector2.zero;
+            ewp.enemy.transform.position = ewp.originalPosition + new Vector3(0f,0.3f,0f);
         }
     }
 
@@ -60,8 +120,8 @@ public class GameManager : MonoBehaviour
                 break;
             }
         }
-        foreach (Enemy enemy in enemies) {
-            enemy.Move();
+        foreach (EnemyWithPosition ewp in enemies) {
+            if (ewp.enemy.gameObject.activeSelf) ewp.enemy.Move();
         }
     }    
 }

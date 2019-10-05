@@ -6,10 +6,24 @@ public class Player : MonoBehaviour
 {
     Rigidbody2D rb;
     bool inJump = false;
+    public GameManager gameManager;
+    float originalGravity;
     
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        originalGravity = rb.gravityScale;
+        SwitchToEdit();
+    }
+
+    public void SwitchToEdit()
+    {
+        rb.gravityScale = 0f;
+    }
+
+    public void SwitchToGame()
+    {
+        rb.gravityScale = originalGravity;
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
@@ -22,6 +36,17 @@ public class Player : MonoBehaviour
         Debug.Log($"Collided with {other.gameObject.name} at {Time.time}");
         if (other.gameObject.name.StartsWith("platform")) {
             inJump = false;
+        }
+        else if (other.gameObject.name.StartsWith("enemy")) {
+            Vector3 enemyPos = other.gameObject.transform.position;
+            if (Mathf.Abs(transform.position.x-enemyPos.x) < 0.5f && transform.position.y > enemyPos.y) {
+                // jumped on the head
+                gameManager.EnemyDied(other.gameObject.GetComponent<Enemy>());
+            }
+            else {
+                // player died
+                gameManager.PlayerDied();
+            }
         }
     }
 
@@ -39,13 +64,13 @@ public class Player : MonoBehaviour
 
     public void Move(float modifier)
     {
-        transform.position += new Vector3(2.5f*modifier*Time.deltaTime,0f,0f);
+        transform.position += new Vector3(3.5f*modifier*Time.deltaTime,0f,0f);
     }
 
     public void Jump()
     {
         if (inJump) return;
-        rb.AddForce(new Vector2(0f,75f));
+        rb.AddForce(new Vector2(0f,85f));
         inJump = true;
     }
 

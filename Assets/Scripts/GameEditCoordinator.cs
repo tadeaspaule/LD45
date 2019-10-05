@@ -25,6 +25,7 @@ public class GameEditCoordinator : MonoBehaviour
         }
         else {
             // switching to edit mode
+            gameManager.SwitchToEdit();
             editorManager.gameObject.SetActive(true);
             gameManager.gameObject.SetActive(false);
             toolPanelAnims.Play("opentools");

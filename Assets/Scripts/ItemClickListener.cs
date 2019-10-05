@@ -15,6 +15,12 @@ public class ItemClickListener : MonoBehaviour
 
     void OnMouseDown()
     {
+        ItemClicked();
+    }
+
+    public void ItemClicked()
+    {
+        Debug.Log("Clicked an item");
         if (useParent) editorManager.PlacedItemClicked(transform.parent.gameObject); 
         else editorManager.PlacedItemClicked(this.gameObject);
     }
