@@ -275,6 +275,7 @@ MonoBehaviour:
   a: {fileID: 103090680}
   customizePrefab: {fileID: 1245188929099517269, guid: f0e93bf1b69ce8142aa1c6aef763473f,
     type: 3}
+  sceneHolder: {fileID: 2106010342}
   menuScene: {fileID: 128539422}
   gameScene: {fileID: 1101224650}
 --- !u!4 &148642982
@@ -973,14 +974,14 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 148642981}
-        m_MethodName: UnlockPrettyVersion
+        m_MethodName: SwitchScene
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: button
+          m_StringArgument: GameScene
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
@@ -1037,7 +1038,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1101224650
 Transform:
   m_ObjectHideFlags: 0

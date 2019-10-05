@@ -54,9 +54,21 @@ public class ToolsManager : MonoBehaviour
 
     #region Scenes
 
+    public Transform sceneHolder;
     public Transform menuScene;
     public Transform gameScene;
     Transform currentScene;
+
+    public void SwitchScene(string sceneName)
+    {
+        foreach (Transform scene in sceneHolder) {
+            if (scene.name.Equals(sceneName)) scene.gameObject.SetActive(true);
+            else if (!scene.name.Equals("BackgroundClickCatcher")) scene.gameObject.SetActive(false);
+        }
+        CloseCustomizePanel();
+        selectedItem = null;
+        itemToPlace = null;
+    }
 
     #endregion
 
