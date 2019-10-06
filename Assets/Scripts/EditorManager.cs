@@ -11,6 +11,7 @@ public class EditorManager : MonoBehaviour
     public DialogManager dialogManager;
     public GameManager gameManager;
     public TimeManager timeManager;
+    public ColorManager colorManager;
 
     #endregion
     
@@ -64,6 +65,59 @@ public class EditorManager : MonoBehaviour
     public Transform checklistContainer;
     public GameObject checklistPrefab;
     public GameObject checklistHeader;
+
+    #endregion
+    
+    #region Levels
+
+    public GameObject levelWindow;
+    public Transform levelsContainer;
+    public Transform addLevelButton;
+    public GameObject levelSelectPrefab;
+    
+    public void SwitchToLevel(int level)
+    {
+        currentLevel = level;
+        currentScene = gameScene.GetChild(level);
+        for (int i = 0; i < gameScene.childCount; i++) {
+            gameScene.GetChild(i).gameObject.SetActive(false);
+        }
+        gameScene.GetChild(level).gameObject.SetActive(true);
+        CloseLevelSelect();
+    }
+
+    public void OpenLevelSelect()
+    {
+        for (int i = 0; i < levelsContainer.childCount; i++) {
+            Image img = levelsContainer.GetChild(i).GetComponent<Image>();
+            if (i == currentLevel) {
+                img.color = colorManager.accentColor;
+            }
+            else {
+                img.color = new Color(0f,0f,0f,0.1f);
+            }
+        }
+        levelWindow.SetActive(true);
+    }
+
+    public void CloseLevelSelect()
+    {
+        levelWindow.SetActive(false);
+    }
+
+    public void CreateLevel()
+    {
+        int i = levelsContainer.childCount;
+        GameObject go = Instantiate(levelSelectPrefab,Vector3.zero,Quaternion.identity,levelsContainer);
+        go.GetComponent<Button>().onClick.AddListener(delegate {SwitchToLevel(i-1);});
+        go.name = i.ToString();
+        go.GetComponentInChildren<TextMeshProUGUI>().text = i.ToString();
+        addLevelButton.SetAsLastSibling();
+        GameObject level = new GameObject($"level{i}");
+        level.transform.parent = gameScene;
+        level.transform.position = Vector3.zero;
+        SwitchToLevel(i-1);
+    }
 
     #endregion
     
@@ -200,12 +254,6 @@ public class EditorManager : MonoBehaviour
         customizePanel.CloseCustomizePanel();
         SetSelectedItem(null);
         itemToPlace = null;
-    }
-
-    public void SwitchToLevel(int level)
-    {
-        currentLevel = level;
-        currentScene = gameScene.GetChild(level);
     }
 
     #endregion
