@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     public bool inJump = false;
     public GameManager gameManager;
     float originalGravity;
+    public Animation moveAnim;
     
     void Start()
     {
@@ -70,12 +71,21 @@ public class Player : MonoBehaviour
 
     public void MoveLeft()
     {
+        if (moveAnim != null) moveAnim.enabled = true;
+        transform.rotation = Quaternion.identity;
         Move(-1f);
     }
 
     public void MoveRight()
     {
+        if (moveAnim != null) moveAnim.enabled = true;
+        transform.rotation = Quaternion.Euler(0f,180f,0f);
         Move(1f);
+    }
+
+    public void NotMoving()
+    {
+        if (moveAnim != null) moveAnim.enabled = false;
     }
 
     public void Move(float modifier)

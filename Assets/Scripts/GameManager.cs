@@ -116,24 +116,29 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        bool foundPlayerMovement = false;
         foreach (string keyName in leftMoves) {
             if (Input.GetKey(keyName)) {
                 player.MoveLeft();
+                foundPlayerMovement = true;
                 break;
             }
         }
         foreach (string keyName in rightMoves) {
             if (Input.GetKey(keyName)) {
                 player.MoveRight();
+                foundPlayerMovement = true;
                 break;
             }
         }
         foreach (string keyName in upMoves) {
             if (Input.GetKey(keyName)) {
+                foundPlayerMovement = true;
                 player.Jump();
                 break;
             }
         }
+        if (!foundPlayerMovement) player.NotMoving();
         foreach (EnemyWithPosition ewp in enemies) {
             if (ewp.enemy.gameObject != null && ewp.enemy.gameObject.activeSelf) ewp.enemy.Act();
         }

@@ -6519,7 +6519,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 3.0460688e-12}
   m_SizeDelta: {x: 150, y: 0}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1360076479
@@ -6619,6 +6619,14 @@ MonoBehaviour:
     internalName: enemywalking-skeleton
   - showName: Nature platform 2
     internalName: platformnature2
+  - showName: Shooting skeleton
+    internalName: enemyshooting-skeleton
+  - showName: Halloween platform 1
+    internalName: platformhalloween1
+  - showName: Halloween platform 2
+    internalName: platformhalloween2
+  - showName: Player
+    internalName: playerpretty
 --- !u!114 &1360076483
 MonoBehaviour:
   m_ObjectHideFlags: 0
