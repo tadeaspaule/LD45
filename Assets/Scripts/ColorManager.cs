@@ -12,15 +12,11 @@ public class ColorManager : MonoBehaviour
     public Image endScreen;
     public Image transitionPanel;
 
-    public Image timerFilled;
-
     void Start()
     {
         startScreen.color = backgroundColor;
         endScreen.color = backgroundColor;
         transitionPanel.color = backgroundColor;
         Camera.main.backgroundColor = backgroundColor;
-
-        timerFilled.color = accentColor;
     }
 }

@@ -17,7 +17,6 @@ public class TimeManager : MonoBehaviour
     bool measuringTime = false;
 
     public TextMeshProUGUI secondsText;
-    public Image clockImage;
 
     // start sequence related
     public AnimationClip startAnim;
@@ -27,29 +26,58 @@ public class TimeManager : MonoBehaviour
     public AnimationClip endAnim;
     public Animation startEndAnimation;
 
+    public Animation timeBlinkAnimation;
+
     const int timeLimit = 15 * 60;
+
+    const int everyN = 5;
+    Color normalCol = new Color(51f/255f,51f/255f,51f/255f,100f/255f);
+    Color redColor = new Color(1f,51f/255f,51f/255f,1f);
+
+    bool dontBlink = false;
 
     public void SetMultiplier(float m)
     {
-        Debug.Log("Multiplier changes");
+        if (m > 1f) {
+            // set to red during the transition time sink
+            secondsText.color = redColor;
+            dontBlink = true;
+        }
+        else {
+            dontBlink = false;
+            secondsText.color = normalCol;
+        }
         multiplier = m;
     }
     
     // Start is called before the first frame update
     void Start()
     {
-        startSecondsTxt.text = timeLimit.ToString();
-        StartCoroutine(StartCountdown());
-        StartCoroutine(Setup());
+        if (startEndAnimation.gameObject.activeSelf) {
+            // playing normally, so play all the usual animations
+            startSecondsTxt.text = timeLimit.ToString();
+            StartCoroutine(StartCountdown());
+            StartCoroutine(Setup());
+        }
+        else {
+            // in debug mode, start countdown immediately
+            SetupTimes();
+        }
+        
+    }
+
+    void SetupTimes()
+    {
+        measuringTime = true;
+        startTime = Time.time;
+        currentTime = Time.time;
+        endTime = Time.time + timeLimit;
     }
 
     IEnumerator StartCountdown()
     {
         yield return new WaitForSeconds(startAnim.length - 2.5f);
-        measuringTime = true;
-        startTime = Time.time;
-        currentTime = Time.time;
-        endTime = Time.time + timeLimit;
+        SetupTimes();
     }
 
     IEnumerator Setup()
@@ -62,10 +90,15 @@ public class TimeManager : MonoBehaviour
     void Update()
     {
         if (!measuringTime) return;
+        float oldModulo = currentTime % everyN;
         currentTime += Time.deltaTime*multiplier;
+        float newModulo = currentTime % everyN;
+        if (newModulo < oldModulo && !dontBlink) {
+            Debug.Log($"Old modulo is {oldModulo}, new one is {newModulo}");
+            timeBlinkAnimation.Play("timeblink");
+        }
         secondsText.text = GetSecondsLeft().ToString();
         startSecondsTxt.text = GetSecondsLeft().ToString();
-        clockImage.fillAmount = 1 - (currentTime-startTime) / (endTime-startTime);
     }
 
     public int GetSecondsLeft()
