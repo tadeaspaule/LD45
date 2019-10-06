@@ -201,38 +201,6 @@ public class EditorManager : MonoBehaviour
     }
 
     #endregion
-    
-    #region Pretty Version related
-
-    HashSet<string> prettyVersions = new HashSet<string>();
-
-    public void UnlockPrettyVersion(string itemName)
-    {
-        prettyVersions.Add(itemName);
-        // replace all existing
-        List<Vector3> posToInstantiate = new List<Vector3>();
-        int newSelected = -1; // in case you replace the selected object, re-select it
-        for (int i = 0; i < currentScene.childCount; i++) {
-            Transform t = currentScene.GetChild(i);
-            if (t.name.Equals(itemName)) {
-                Vector3 pos = t.position;
-                Destroy(t.gameObject);
-                posToInstantiate.Add(pos);
-            }
-            if (t.gameObject.Equals(selectedItem)) {
-                newSelected = i;
-            }
-        }
-        for (int i = 0; i < posToInstantiate.Count; i++) {
-            GameObject go = Instantiate(GetItemPrefab(itemName),posToInstantiate[i],Quaternion.identity,currentScene);
-            if (i == newSelected) {
-                selectedItem = go;
-                go.GetComponent<SelectedDisplay>().ToggleActive(true);
-            }
-        }
-    }
-
-    #endregion
 
     #region Scenes
 
@@ -325,7 +293,6 @@ public class EditorManager : MonoBehaviour
 
     GameObject GetItemPrefab(string name)
     {
-        if (prettyVersions.Contains(name)) name += "pretty";
         Debug.Log($"Getting item with name {name}");
         return Resources.Load<GameObject>($"Tools/{name}");
     }
@@ -438,4 +405,11 @@ public class EditorManager : MonoBehaviour
     }
 
     #endregion
+
+    public void PublishGame()
+    {
+        // TODO ??? Maybe another screen, for now just play the ending animation
+        timeManager.PlayEnd();
+    }
+
 }
