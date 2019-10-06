@@ -14,6 +14,7 @@ public class Enemy : EnemyBase
     }
 
     void OnCollisionEnter2D(Collision2D other) {
+        if (inEdit) return;
         BaseCollisionChecks(other);
         if (other.gameObject.tag.Equals("obstacle")) {
             Flip();
@@ -21,6 +22,7 @@ public class Enemy : EnemyBase
     }
 
     void OnTriggerEnter2D(Collider2D other) {
+        if (inEdit) return;
         BaseTriggerChecks(other);
         if (other.gameObject.tag.Equals("platformedge")) {
             Flip();

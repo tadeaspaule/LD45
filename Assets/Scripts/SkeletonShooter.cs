@@ -62,10 +62,12 @@ public class SkeletonShooter : EnemyBase
     }
 
     void OnCollisionEnter2D(Collision2D other) {
+        if (inEdit) return;
         BaseCollisionChecks(other);
     }
 
     void OnTriggerEnter2D(Collider2D other) {
+        if (inEdit) return;
         BaseTriggerChecks(other);
     }
 }

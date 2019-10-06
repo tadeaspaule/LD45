@@ -9,9 +9,11 @@ public class Player : MonoBehaviour
     public GameManager gameManager;
     float originalGravity;
     public Animation moveAnim;
+    bool inEdit = true;
     
     void Start()
     {
+        gameManager = FindObjectOfType<GameManager>();
         rb = GetComponent<Rigidbody2D>();
         originalGravity = rb.gravityScale;
         SwitchToEdit();
@@ -19,23 +21,27 @@ public class Player : MonoBehaviour
 
     public void SwitchToEdit()
     {
+        inEdit = true;
         rb.constraints = RigidbodyConstraints2D.FreezeAll;
         rb.gravityScale = 0f;
     }
 
     public void SwitchToGame()
     {
+        inEdit = false;
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         rb.gravityScale = originalGravity;
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
+        if (inEdit) return;
         if (other.gameObject.name.StartsWith("end")) {
             gameManager.ResetPositions();
         }
     }
 
     private void OnCollisionEnter2D(Collision2D other) {
+        if (inEdit) return;
         Debug.Log($"Collided with {other.gameObject.name}, tag {other.gameObject.tag} at {Time.time}");
         if (other.gameObject.name.StartsWith("platform")) {
             inJump = false;

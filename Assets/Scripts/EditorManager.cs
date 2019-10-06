@@ -61,6 +61,9 @@ public class EditorManager : MonoBehaviour
         foreach (string tool in stageList[index].gainTools) {
             AddNewTool(tool);
         }
+        foreach (string tool in stageList[index].loseTools) {
+            availableTools.Remove(tool);
+        }
         toolsPanel.DisplayTools(availableTools.ToArray(), isInMenu);
     }
     
@@ -198,6 +201,7 @@ public class EditorManager : MonoBehaviour
             AddNewTool(tool);
         }
         foreach (string tool in stageList[currentStage].loseTools) {
+            Debug.Log($"Removing {tool}");
             availableTools.Remove(tool);
         }
         toolsPanel.DisplayTools(availableTools.ToArray(), isInMenu);
@@ -226,6 +230,8 @@ public class EditorManager : MonoBehaviour
         Destroy(go);
     }
 
+    bool updatedPlatforms = false;
+    
     void AddNewTool(string tool)
     {
         availableTools.Add(tool);
@@ -236,6 +242,63 @@ public class EditorManager : MonoBehaviour
         GameObject go = Instantiate(announcePrefab,Vector3.zero,Quaternion.identity,announceContainer);
         go.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = name;
         StartCoroutine(DelayedDestroy(go));
+
+        if (tool.Contains("pretty")) {
+            selectedItem = null;
+            itemToPlace = null;
+            foreach (Transform child in menuScene) {
+                if ((child.name + "pretty").Equals(tool)) {
+                    GameObject prefab = GetItemPrefab(tool);
+                    GameObject newV = Instantiate(prefab,Vector3.zero,Quaternion.identity,currentScene);
+                    newV.name = tool;
+                    newV.transform.position = child.position;
+                    Destroy(child.gameObject);
+                }
+            }
+            foreach (Transform level in gameScene) {
+                foreach (Transform child in level) {
+                    if ((child.name + "pretty").Equals(tool)) {
+                        GameObject prefab = GetItemPrefab(tool);
+                        GameObject newV = Instantiate(prefab,Vector3.zero,Quaternion.identity,currentScene);
+                        newV.name = tool;
+                        newV.transform.position = child.position;
+                        Destroy(child.gameObject);
+                    }
+                }
+            }
+        }
+        else if (tool.Contains("-skeleton")) {
+            selectedItem = null;
+            itemToPlace = null;
+            foreach (Transform level in gameScene) {
+                foreach (Transform child in level) {
+                    if ((child.name + "-skeleton").Equals(tool)) {
+                        GameObject prefab = GetItemPrefab(tool);
+                        GameObject newV = Instantiate(prefab,Vector3.zero,Quaternion.identity,level);
+                        newV.name = tool;
+                        newV.transform.position = child.position;
+                        Destroy(child.gameObject);
+                    }
+                }
+            }
+        }
+        else if (tool.Contains("platform") && tool.Length > 8 && !updatedPlatforms) {
+            // upgraded platform
+            selectedItem = null;
+            itemToPlace = null;
+            updatedPlatforms = true;
+            foreach (Transform level in gameScene) {
+                foreach (Transform child in level) {
+                    if (child.name.Equals("platform")) {
+                        GameObject prefab = GetItemPrefab(tool);
+                        GameObject newV = Instantiate(prefab,Vector3.zero,Quaternion.identity,level);
+                        newV.name = tool;
+                        newV.transform.position = child.position;
+                        Destroy(child.gameObject);
+                    }
+                }
+            }
+        }
     }
 
     #endregion
