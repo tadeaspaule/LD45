@@ -62,7 +62,7 @@
     },
     {
         "name": "prettier enemies",
-        "gainTools": ["enemywalking-skeleton"],
+        "gainTools": ["enemywalking-skeleton","enemyshooting-skeleton"],
         "skippable": true,
         "dialogMode": "art",
         "dialogHeader": "Yeaaah, I think those enemy models need some work...",

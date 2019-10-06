@@ -260,7 +260,7 @@ public class EditorManager : MonoBehaviour
             SwitchScene(false);
             toolsPanel.AddToolToPanel("player");
             toolsPanel.AddToolToPanel("platform");
-            toolsPanel.AddToolToPanel("end");
+            toolsPanel.AddToolToPanel("enemyshooting-skeleton");
         }
         else {
             StartStage();

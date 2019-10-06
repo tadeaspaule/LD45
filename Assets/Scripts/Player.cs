@@ -33,7 +33,7 @@ public class Player : MonoBehaviour
     }
 
     private void OnCollisionEnter2D(Collision2D other) {
-        Debug.Log($"Collided with {other.gameObject.name} at {Time.time}");
+        Debug.Log($"Collided with {other.gameObject.name}, tag {other.gameObject.tag} at {Time.time}");
         if (other.gameObject.name.StartsWith("platform")) {
             inJump = false;
         }
