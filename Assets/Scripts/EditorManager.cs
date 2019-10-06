@@ -10,6 +10,7 @@ public class EditorManager : MonoBehaviour
 
     public DialogManager dialogManager;
     public GameManager gameManager;
+    public TimeManager timeManager;
 
     #endregion
     
@@ -24,6 +25,37 @@ public class EditorManager : MonoBehaviour
     GameObject itemToPlace = null; // item you're moving
     GameObject selectedItem = null; // item you're editing
 
+    #endregion
+    
+    #region Transition
+
+    public Animation transitionAnim;
+    public AnimationClip animClip;
+    public TextMeshProUGUI transitionText;
+
+    void PlayTransition()
+    {
+        switch (stageList[currentStage].dialogMode) {
+            case "art":
+                transitionText.text = "Furious drawing";
+                break;
+            case "programming":
+                transitionText.text = "Furious coding";
+                break;
+            default:
+                break;
+        }
+        transitionAnim.Play();
+        StartCoroutine(TimeSpeedupDuringTransition());
+    }
+
+    IEnumerator TimeSpeedupDuringTransition()
+    {
+        timeManager.SetMultiplier(30f);
+        yield return new WaitForSeconds(animClip.length);
+        timeManager.SetMultiplier(1f);
+    }
+    
     #endregion
     
     #region Stages
@@ -310,8 +342,9 @@ public class EditorManager : MonoBehaviour
     public void ClickedDoIt()
     {
         dialogManager.CloseDialog();
+        PlayTransition();
         SetupStage();
-    }
+    } 
 
     public void ClickedSkipIt()
     {

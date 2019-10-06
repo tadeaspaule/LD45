@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine.UI;
 
 public class DialogManager : MonoBehaviour
-{
+{    
     public GameObject dialogOuter;
     public TextMeshProUGUI headerTMPro;
     public TextMeshProUGUI doItTMPro;

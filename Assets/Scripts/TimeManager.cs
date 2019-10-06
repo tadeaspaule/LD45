@@ -16,6 +16,7 @@ public class TimeManager : MonoBehaviour
 
     public void SetMultiplier(float m)
     {
+        Debug.Log("Multiplier changes");
         multiplier = m;
     }
     
