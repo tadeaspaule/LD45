@@ -249,7 +249,7 @@ public class EditorManager : MonoBehaviour
         currentScene = menuScene;
         stageList = JsonReader.readJsonArray<Stage>(stagesJson.ToString());
         currentStage = 0;
-        StartEverything(false);        
+        StartEverything(true);        
     }
 
     void StartEverything(bool isDebug)
@@ -260,7 +260,7 @@ public class EditorManager : MonoBehaviour
             SwitchScene(false);
             toolsPanel.AddToolToPanel("player");
             toolsPanel.AddToolToPanel("platform");
-            toolsPanel.AddToolToPanel("enemywalking-skeleton");
+            toolsPanel.AddToolToPanel("end");
         }
         else {
             StartStage();

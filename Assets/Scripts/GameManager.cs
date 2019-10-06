@@ -96,7 +96,7 @@ public class GameManager : MonoBehaviour
         ResetPositions();
     }
 
-    void ResetPositions()
+    public void ResetPositions()
     {
         player.transform.position = originalPlayerPosition;
         Rigidbody2D rbp = player.gameObject.GetComponent<Rigidbody2D>();
