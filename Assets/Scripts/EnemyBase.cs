@@ -21,11 +21,13 @@ public abstract class EnemyBase : MonoBehaviour
 
     public void SwitchToEdit()
     {
+        rb.constraints = RigidbodyConstraints2D.FreezeAll;
         rb.gravityScale = 0f;
     }
 
     public void SwitchToGame()
     {
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         rb.gravityScale = originalGravity;
     }
 
