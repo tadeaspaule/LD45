@@ -1675,6 +1675,7 @@ MonoBehaviour:
   currentTime: 0
   multiplier: 1
   secondsText: {fileID: 947937860}
+  secondsOrSecond: {fileID: 223706171}
   startAnim: {fileID: 7400000, guid: 488e1471deaa3114ebe1f766b8b2a6ab, type: 2}
   startSecondsTxt: {fileID: 1652638479}
   endAnim: {fileID: 7400000, guid: 0ba9b36271dd8654191366144e29ef4c, type: 2}
@@ -6613,7 +6614,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: 1.9422034e-16}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 150, y: 0}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1360076479

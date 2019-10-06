@@ -17,6 +17,7 @@ public class TimeManager : MonoBehaviour
     bool measuringTime = false;
 
     public TextMeshProUGUI secondsText;
+    public TextMeshProUGUI secondsOrSecond;
 
     // start sequence related
     public AnimationClip startAnim;
@@ -94,6 +95,7 @@ public class TimeManager : MonoBehaviour
         currentTime += Time.deltaTime*multiplier;
         if (endTime - currentTime <= 1f) {
             PlayEnd();
+            secondsOrSecond.text = "second";
             measuringTime = false;
             return;
         }
