@@ -33,9 +33,9 @@ public class EditorManager : MonoBehaviour
     public AnimationClip animClip;
     public TextMeshProUGUI transitionText;
 
-    void PlayTransition()
+    void PlayTransition(int stageIndex)
     {
-        switch (stageList[currentStage].dialogMode) {
+        switch (stageList[stageIndex].dialogMode) {
             case "art":
                 transitionText.text = "Furious drawing";
                 break;
@@ -56,6 +56,14 @@ public class EditorManager : MonoBehaviour
         timeManager.SetMultiplier(1f);
     }
     
+    #endregion
+    
+    #region Checklist
+
+    public List<int> skippedStages = new List<int>();
+    public Transform checklistContainer;
+    public GameObject checklistPrefab;
+
     #endregion
     
     #region Stages
@@ -104,6 +112,19 @@ public class EditorManager : MonoBehaviour
         else if (name.Equals("more levels")) {
             SwitchScene(false);
             ShowButtonTooltip(changeLevelBtn, "To make more levels, click this button");
+            
+            // reached the last stage, now allow making new levels and disable next stage btn
+            nextStageBtn.SetActive(false);
+            ShowTooltip("Make more levels");
+
+            // enable checklist
+            foreach (int i in skippedStages) {
+                Debug.Log($"Should add to checklist n. {i}");
+                GameObject go = Instantiate(checklistPrefab,Vector3.zero,Quaternion.identity,checklistContainer);
+                go.GetComponentInChildren<TextMeshProUGUI>().text = stageList[i].name;
+                go.GetComponent<Button>().onClick.AddListener(delegate {ClickedChecklistItem(go);});
+                go.name = i.ToString();
+            }
         }
         // sets up tools panel and maybe other things
         foreach (string tool in stageList[currentStage].gainTools) {
@@ -342,23 +363,25 @@ public class EditorManager : MonoBehaviour
     public void ClickedDoIt()
     {
         dialogManager.CloseDialog();
-        PlayTransition();
+        PlayTransition(currentStage);
         SetupStage();
     } 
 
     public void ClickedSkipIt()
     {
+        skippedStages.Add(currentStage);
         SkipStage();
+    }
+
+    public void ClickedChecklistItem(GameObject go)
+    {
+        PlayTransition(int.Parse(go.name));
+        Destroy(go);
     }
 
     public void ClickedNextStage()
     {
         currentStage += 1;
-        if (stageList[currentStage].name.Equals("more levels")) {
-            // reached the last stage, now allow making new levels and disable next stage btn
-            nextStageBtn.SetActive(false);
-            ShowTooltip("Make more levels");
-        }
         StartStage();
     }
 
