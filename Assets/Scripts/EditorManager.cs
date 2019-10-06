@@ -252,7 +252,7 @@ public class EditorManager : MonoBehaviour
         currentScene = menuScene;
         stageList = JsonReader.readJsonArray<Stage>(stagesJson.ToString());
         currentStage = 0;
-        StartEverything(false);        
+        StartEverything(true);        
     }
 
     void StartEverything(bool isDebug)
@@ -262,7 +262,7 @@ public class EditorManager : MonoBehaviour
             // here add stuff to test
             SwitchScene(false);
             availableTools.Add("playerpretty");
-            availableTools.Add("platform");
+            availableTools.Add("platformhalloween1");
             availableTools.Add("enemywalking");
             availableTools.Add("enemywalking-skeleton");
             toolsPanel.DisplayTools(availableTools.ToArray(), isInMenu);
