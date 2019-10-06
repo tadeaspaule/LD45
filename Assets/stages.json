@@ -2,6 +2,7 @@
     {
         "name": "main menu",
         "gainTools": ["button"],
+        "loseTools": [],
         "dialogMode": "programming",
         "skippable": true,
         "dialogHeader": "I should make a main menu first...",
@@ -11,6 +12,7 @@
     {
         "name": "main menu pretty",
         "gainTools": ["buttonpretty"],
+        "loseTools": [],
         "dialogMode": "art",
         "skippable": true,
         "dialogHeader": "Those buttons look a bit bland, maybe I should improve them just a bit...",
@@ -20,6 +22,7 @@
     {
         "name": "first level",
         "gainTools": ["platform", "player", "end"],
+        "loseTools": [],
         "skippable": false,
         "dialogHeader": "BLANK",
         "doItText": "BLANK",
@@ -28,6 +31,7 @@
     {
         "name": "first level pretty",
         "gainTools": ["platformnature1","platformnature2","platformhalloween1","platformhalloween2"],
+        "loseTools": [],
         "skippable": true,
         "dialogMode": "art",
         "dialogHeader": "Those models look awful, I should work on them a bit...",
@@ -37,6 +41,7 @@
     {
         "name": "ground hazards",
         "gainTools": ["spikes"],
+        "loseTools": [],
         "skippable": true,
         "dialogMode": "programming",
         "dialogHeader": "I should add some ground hazards ...",
@@ -46,6 +51,7 @@
     {
         "name": "second level",
         "gainTools": ["enemywalking"],
+        "loseTools": [],
         "skippable": false,
         "dialogHeader": "BLANK",
         "doItText": "BLANK",
@@ -54,6 +60,7 @@
     {
         "name": "more enemies",
         "gainTools": ["enemyshooting"],
+        "loseTools": [],
         "skippable": true,
         "dialogMode": "programming",
         "dialogHeader": "I should add some more enemy choices, this might get boring...",
@@ -63,6 +70,7 @@
     {
         "name": "prettier enemies",
         "gainTools": ["enemywalking-skeleton","enemyshooting-skeleton"],
+        "loseTools": ["enemywalking","enemyshooting"],
         "skippable": true,
         "dialogMode": "art",
         "dialogHeader": "Yeaaah, I think those enemy models need some work...",
@@ -72,6 +80,7 @@
     {
         "name": "more levels",
         "gainTools": [],
+        "loseTools": [],
         "skippable": false,
         "dialogHeader": "BLANK",
         "doItText": "BLANK",
