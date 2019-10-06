@@ -1,7 +1,13 @@
 fileFormatVersion: 2
 guid: 5aab5ff700cd9b84f811429079ed0348
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: playerbetter-parts_0
+    21300002: playerbetter-parts_1
+    21300004: playerbetter-parts_2
+    21300006: playerbetter-parts_3
+    21300008: playerbetter-parts_4
+    21300010: playerbetter-parts_5
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -40,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -69,9 +75,173 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: playerbetter-parts_0
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 231
+        width: 121
+        height: 105
+      alignment: 9
+      pivot: {x: 0.5058303, y: 0.35218766}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b376c085468ae9f4c9d713aad1912fdd
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: playerbetter-parts_1
+      rect:
+        serializedVersion: 2
+        x: 236
+        y: 88
+        width: 153
+        height: 296
+      alignment: 9
+      pivot: {x: 0.4999998, y: 0.23306635}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5876a4b94a33773429f241cc9f869ee5
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: playerbetter-parts_2
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 92
+        width: 62
+        height: 42
+      alignment: 9
+      pivot: {x: 0.88686913, y: 0.23125003}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f22a2f379c7915f419f2e1e2f6efaabf
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: playerbetter-parts_3
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 89
+        width: 56
+        height: 51
+      alignment: 9
+      pivot: {x: 0.15986387, y: 0.16801497}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d2988f1bf0f192542b407843d1203912
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: playerbetter-parts_4
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 0
+        width: 37
+        height: 66
+      alignment: 9
+      pivot: {x: 0.6906666, y: 0.90617836}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 49b9fde5239c2c94e8295d836098bf66
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: playerbetter-parts_5
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 4
+        width: 44
+        height: 64
+      alignment: 9
+      pivot: {x: 0.17933273, y: 0.9078485}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b40ceeefc8c0c7340a7c5a9b37d333e4
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []

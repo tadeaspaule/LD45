@@ -76,11 +76,11 @@ public class ToolsPanel : MonoBehaviour
     public void UpdateUseTexts()
     {
         foreach (Transform tool in toolsPanel) {
-            if (tool.name.Equals("player")) {
+            if (tool.name.StartsWith("player")) {
                 int count = editorManager.hasPlayer ? 1 : 0;
                 tool.GetComponent<SelectionItem>().SetUses(1-count,1);
             }
-            else if (tool.name.Equals("end")) {
+            else if (tool.name.StartsWith("end")) {
                 int count = editorManager.hasEnd ? 1 : 0;
                 tool.GetComponent<SelectionItem>().SetUses(1-count,1);
             }

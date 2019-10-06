@@ -6,7 +6,7 @@ public class Bullet : MonoBehaviour
 {
     void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.name.Equals("player")) {
+        if (other.gameObject.name.StartsWith("player")) {
             transform.parent.parent.GetComponent<EnemyBase>().gameManager.PlayerDied();
             return;
         }

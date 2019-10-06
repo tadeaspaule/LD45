@@ -253,7 +253,7 @@ public class EditorManager : MonoBehaviour
         currentScene = menuScene;
         stageList = JsonReader.readJsonArray<Stage>(stagesJson.ToString());
         currentStage = 0;
-        StartEverything(false);        
+        StartEverything(true);        
     }
 
     void StartEverything(bool isDebug)
@@ -262,7 +262,7 @@ public class EditorManager : MonoBehaviour
             playLevelBtn.gameObject.SetActive(true);
             // here add stuff to test
             SwitchScene(false);
-            toolsPanel.AddToolToPanel("player");
+            toolsPanel.AddToolToPanel("playerpretty");
             toolsPanel.AddToolToPanel("platform");
             toolsPanel.AddToolToPanel("enemyshooting-skeleton");
         }
@@ -323,11 +323,11 @@ public class EditorManager : MonoBehaviour
     public void ToolClicked(string name)
     {
         if (itemToPlace != null) return;
-        if (name.Equals("player")) {
+        if (name.StartsWith("player")) {
             if (hasPlayer) return;
             hasPlayer = true;
         }
-        if (name.Equals("end")) {
+        if (name.StartsWith("end")) {
             if (hasEnd) return;
             hasEnd = true;
         }
@@ -358,8 +358,8 @@ public class EditorManager : MonoBehaviour
                 itemToPlace = selectedItem;
                 break;
             case "delete":
-                if (selectedItem.name.Equals("player")) hasPlayer = false;
-                if (selectedItem.name.Equals("end")) hasEnd = false;
+                if (selectedItem.name.StartsWith("player")) hasPlayer = false;
+                if (selectedItem.name.StartsWith("end")) hasEnd = false;
                 Destroy(selectedItem);
                 toolsPanel.UpdateUseTexts();
                 SetSelectedItem(null);

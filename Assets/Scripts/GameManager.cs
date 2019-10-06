@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
     {
         this.levelContainer = levelContainer;
         foreach (Transform child in levelContainer) {
-            if (child.gameObject.name.Equals("player")) {
+            if (child.gameObject.name.StartsWith("player")) {
                 player = child.GetComponentInChildren<Player>();
                 player.SwitchToGame();
                 originalPlayerPosition = child.position;
