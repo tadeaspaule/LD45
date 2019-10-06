@@ -9,6 +9,8 @@ public abstract class EnemyBase : MonoBehaviour
     public abstract void Die();
     
     public abstract void Act();
+    
+    public abstract void Flip();
 
     protected void Setup()
     {

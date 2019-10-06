@@ -8,6 +8,7 @@ public class EnemyShooting : EnemyBase
     float waitBetweenShots = 2f; // seconds
     public Transform shotsContainer;
     public GameObject projectilePrefab;
+    bool shootingRight = true;
     
     // Start is called before the first frame update
     void Start()
@@ -31,13 +32,26 @@ public class EnemyShooting : EnemyBase
             Shoot();
         }
         foreach (Transform shot in shotsContainer) {
-            shot.position += new Vector3(0f,3f*Time.deltaTime,0f);
+            Vector3 shotMove = new Vector3(3f*Time.deltaTime,0f,0f);
+            if (!shootingRight) shotMove*=-1f;
+            shot.position += shotMove;
         }
         // keeps itself upright
         transform.rotation = Quaternion.identity;
     }
 
     public override void Die(){}
+
+    public override void Flip()
+    {
+        shootingRight = !shootingRight;
+        if (shootingRight) {
+            transform.rotation = Quaternion.identity;
+        }
+        else {
+            transform.rotation = Quaternion.Euler(0f,180f,0f);
+        }
+    }
 
     void Shoot()
     {

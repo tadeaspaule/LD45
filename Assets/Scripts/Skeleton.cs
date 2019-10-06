@@ -46,8 +46,14 @@ public class Skeleton : EnemyBase
         }
     }
 
-    void Flip()
+    public override void Flip()
     {
         goingRight = !goingRight;
+        if (goingRight) {
+            transform.rotation = Quaternion.identity;
+        }
+        else {
+            transform.rotation = Quaternion.Euler(0f,180f,0f);
+        }
     }
 }

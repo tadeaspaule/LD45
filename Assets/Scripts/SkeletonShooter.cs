@@ -44,6 +44,17 @@ public class SkeletonShooter : EnemyBase
         transform.rotation = Quaternion.identity;
     }
 
+    public override void Flip()
+    {
+        shootingRight = !shootingRight;
+        if (shootingRight) {
+            transform.rotation = Quaternion.identity;
+        }
+        else {
+            transform.rotation = Quaternion.Euler(0f,180f,0f);
+        }
+    }
+
     void Shoot()
     {
         GameObject go = Instantiate(projectilePrefab,Vector3.zero,Quaternion.identity,shotsContainer);

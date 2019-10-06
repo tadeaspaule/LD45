@@ -47,6 +47,9 @@ public class CustomizePanel : MonoBehaviour
             options.Add("expand");
             options.Add("shrink");
         }
+        if (itemName.StartsWith("enemy")) {
+            options.Add("flip");
+        }
         foreach (string op in options) {
             Sprite img = Resources.Load<Sprite>($"CustomizeOptions/{op}");
             GameObject optionAdded = Instantiate(customizePrefab,Vector3.zero,Quaternion.identity,customizeOptionsContainer);

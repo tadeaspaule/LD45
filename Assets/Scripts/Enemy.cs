@@ -27,7 +27,7 @@ public class Enemy : EnemyBase
         }
     }
 
-    void Flip()
+    public override void Flip()
     {
         goingRight = !goingRight;
     }

@@ -264,7 +264,8 @@ public class EditorManager : MonoBehaviour
             SwitchScene(false);
             toolsPanel.AddToolToPanel("playerpretty");
             toolsPanel.AddToolToPanel("platform");
-            toolsPanel.AddToolToPanel("endpretty");
+            toolsPanel.AddToolToPanel("enemywalking");
+            toolsPanel.AddToolToPanel("enemywalking-skeleton");
         }
         else {
             StartStage();
@@ -371,6 +372,11 @@ public class EditorManager : MonoBehaviour
                 break;
             case "shrink":
                 selectedItem.GetComponent<Resizer>().Shrink();
+                break;
+            case "flip":
+                EnemyBase eb = selectedItem.GetComponent<EnemyBase>();
+                if (eb == null) eb = selectedItem.GetComponentInChildren<EnemyBase>();
+                eb.Flip();
                 break;
             default:
                 break;
