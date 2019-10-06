@@ -45,7 +45,7 @@ public class EditorManager : MonoBehaviour
         }
         transitionAnim.Play();
         StartCoroutine(TimeSpeedupDuringTransition());
-        StartCoroutine(UpdateToolsDuringAnim());
+        StartCoroutine(UpdateToolsAfterAnim(stageIndex));
     }
 
     IEnumerator TimeSpeedupDuringTransition()
@@ -55,9 +55,12 @@ public class EditorManager : MonoBehaviour
         timeManager.SetMultiplier(1f);
     }
 
-    IEnumerator UpdateToolsDuringAnim()
+    IEnumerator UpdateToolsAfterAnim(int index)
     {
-        yield return new WaitForSeconds(animClip.length*0.5f);
+        yield return new WaitForSeconds(animClip.length);
+        foreach (string tool in stageList[index].gainTools) {
+            AddNewTool(tool);
+        }
         toolsPanel.DisplayTools(availableTools.ToArray(), isInMenu);
     }
     
@@ -192,7 +195,7 @@ public class EditorManager : MonoBehaviour
         }
         // sets up tools panel and maybe other things
         foreach (string tool in stageList[currentStage].gainTools) {
-            availableTools.Add(tool);
+            AddNewTool(tool);
         }
         foreach (string tool in stageList[currentStage].loseTools) {
             availableTools.Remove(tool);
@@ -208,6 +211,31 @@ public class EditorManager : MonoBehaviour
             }
         }
         StartStage();
+    }
+
+    #endregion
+
+    #region Announcer
+
+    public Transform announceContainer;
+    public GameObject announcePrefab;
+
+    IEnumerator DelayedDestroy(GameObject go)
+    {
+        yield return new WaitForSeconds(2f);
+        Destroy(go);
+    }
+
+    void AddNewTool(string tool)
+    {
+        availableTools.Add(tool);
+        string name = "";
+        foreach (ToolsPanel.NameIDPair nidp in toolsPanel.names) {
+            if (nidp.internalName.Equals(tool)) name = nidp.showName;
+        }
+        GameObject go = Instantiate(announcePrefab,Vector3.zero,Quaternion.identity,announceContainer);
+        go.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = name;
+        StartCoroutine(DelayedDestroy(go));
     }
 
     #endregion
@@ -252,7 +280,7 @@ public class EditorManager : MonoBehaviour
         currentScene = menuScene;
         stageList = JsonReader.readJsonArray<Stage>(stagesJson.ToString());
         currentStage = 0;
-        StartEverything(true);        
+        StartEverything(false);        
     }
 
     void StartEverything(bool isDebug)
@@ -428,7 +456,6 @@ public class EditorManager : MonoBehaviour
     {
         dialogManager.CloseDialog();
         PlayTransition(currentStage);
-        SetupStage();
     } 
 
     public void ClickedSkipIt()
@@ -440,9 +467,6 @@ public class EditorManager : MonoBehaviour
     public void ClickedChecklistItem(GameObject go)
     {
         int index = int.Parse(go.name);
-        foreach (string tool in stageList[index].gainTools) {
-            availableTools.Add(tool);
-        }
         foreach (string tool in stageList[index].loseTools) {
             availableTools.Remove(tool);
         }

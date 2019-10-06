@@ -99,7 +99,6 @@ public class TimeManager : MonoBehaviour
         }
         float newModulo = currentTime % everyN;
         if (newModulo < oldModulo && !dontBlink) {
-            Debug.Log($"Old modulo is {oldModulo}, new one is {newModulo}");
             timeBlinkAnimation.Play("timeblink");
         }
         secondsText.text = GetSecondsLeft().ToString();
