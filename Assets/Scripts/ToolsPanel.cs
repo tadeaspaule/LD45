@@ -77,11 +77,11 @@ public class ToolsPanel : MonoBehaviour
     {
         foreach (Transform tool in toolsPanel) {
             if (tool.name.StartsWith("player")) {
-                int count = editorManager.hasPlayer ? 1 : 0;
+                int count = editorManager.HasPlayer() ? 1 : 0;
                 tool.GetComponent<SelectionItem>().SetUses(1-count,1);
             }
             else if (tool.name.StartsWith("end")) {
-                int count = editorManager.hasEnd ? 1 : 0;
+                int count = editorManager.HasEnd() ? 1 : 0;
                 tool.GetComponent<SelectionItem>().SetUses(1-count,1);
             }
         }

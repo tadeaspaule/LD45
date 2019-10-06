@@ -20,9 +20,6 @@ public class EditorManager : MonoBehaviour
     public ToolsPanel toolsPanel;
     public CustomizePanel customizePanel;
 
-    public bool hasPlayer = false;
-    public bool hasEnd = false;
-
     GameObject itemToPlace = null; // item you're moving
     GameObject selectedItem = null; // item you're editing
 
@@ -91,6 +88,8 @@ public class EditorManager : MonoBehaviour
         }
         gameScene.GetChild(level).gameObject.SetActive(true);
         CloseLevelSelect();
+        // update tools        
+        toolsPanel.DisplayTools(availableTools.ToArray(), isInMenu);
     }
 
     public void OpenLevelSelect()
@@ -262,10 +261,11 @@ public class EditorManager : MonoBehaviour
             playLevelBtn.gameObject.SetActive(true);
             // here add stuff to test
             SwitchScene(false);
-            toolsPanel.AddToolToPanel("playerpretty");
-            toolsPanel.AddToolToPanel("platform");
-            toolsPanel.AddToolToPanel("enemywalking");
-            toolsPanel.AddToolToPanel("enemywalking-skeleton");
+            availableTools.Add("playerpretty");
+            availableTools.Add("platform");
+            availableTools.Add("enemywalking");
+            availableTools.Add("enemywalking-skeleton");
+            toolsPanel.DisplayTools(availableTools.ToArray(), isInMenu);
         }
         else {
             StartStage();
@@ -324,14 +324,8 @@ public class EditorManager : MonoBehaviour
     public void ToolClicked(string name)
     {
         if (itemToPlace != null) return;
-        if (name.StartsWith("player")) {
-            if (hasPlayer) return;
-            hasPlayer = true;
-        }
-        if (name.StartsWith("end")) {
-            if (hasEnd) return;
-            hasEnd = true;
-        }
+        if (name.StartsWith("player") && HasPlayer()) return;
+        if (name.StartsWith("end") && HasEnd()) return;
         Debug.Log($"Clicked tool {name}");
         GameObject prefab = GetItemPrefab(name);
         Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -340,6 +334,22 @@ public class EditorManager : MonoBehaviour
         if (selectedItem != null) customizePanel.CloseCustomizePanel();
         SetSelectedItem(itemToPlace);
         toolsPanel.UpdateUseTexts();
+    }
+
+    public bool HasPlayer()
+    {
+        foreach (Transform child in currentScene) {
+            if (child.gameObject.name.StartsWith("player")) return true;
+        }
+        return false;
+    }
+
+    public bool HasEnd()
+    {
+        foreach (Transform child in currentScene) {
+            if (child.gameObject.name.StartsWith("end")) return true;
+        }
+        return false;
     }
 
     public void ClickedBackground()
@@ -359,8 +369,6 @@ public class EditorManager : MonoBehaviour
                 itemToPlace = selectedItem;
                 break;
             case "delete":
-                if (selectedItem.name.StartsWith("player")) hasPlayer = false;
-                if (selectedItem.name.StartsWith("end")) hasEnd = false;
                 Destroy(selectedItem);
                 toolsPanel.UpdateUseTexts();
                 SetSelectedItem(null);
