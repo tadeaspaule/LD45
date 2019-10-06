@@ -23,6 +23,8 @@ public class EditorManager : MonoBehaviour
     GameObject itemToPlace = null; // item you're moving
     GameObject selectedItem = null; // item you're editing
 
+    bool itemWasClicked = false;
+
     #endregion
     
     #region Transition
@@ -343,7 +345,7 @@ public class EditorManager : MonoBehaviour
         currentScene = menuScene;
         stageList = JsonReader.readJsonArray<Stage>(stagesJson.ToString());
         currentStage = 0;
-        StartEverything(false);        
+        StartEverything(true);        
     }
 
     void StartEverything(bool isDebug)
@@ -381,6 +383,10 @@ public class EditorManager : MonoBehaviour
                 customizePanel.OpenCustomizeOptions(selectedItem.name);
             }
         }
+        else if (Input.GetMouseButtonDown(0)) {
+            if (!itemWasClicked) SetSelectedItem(null);
+        }
+        itemWasClicked = false;
     }
 
     #endregion
@@ -400,6 +406,7 @@ public class EditorManager : MonoBehaviour
         }
         selectedItem = item;
         if (item != null) selectedItem.GetComponent<SelectedDisplay>().ToggleActive(true);
+        else customizePanel.CloseCustomizePanel();
     }
 
     GameObject GetItemPrefab(string name)
@@ -496,6 +503,7 @@ public class EditorManager : MonoBehaviour
 
     public void PlacedItemClicked(GameObject item)
     {
+        itemWasClicked = true;
         nextStageBtn.SetActive(true);
         Debug.Log("Clicked placed item");
         if (itemToPlace != null) return; // nothing happens if currently dragging something
