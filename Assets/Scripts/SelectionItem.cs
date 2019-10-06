@@ -24,7 +24,7 @@ public class SelectionItem : MonoBehaviour
     {
         infinityImg.SetActive(false);
         usesText.gameObject.SetActive(true);
-        usesText.text = $"{current} / {max}";
+        usesText.text = $"{current}/{max}";
     }
 
     public void MouseEntered()
