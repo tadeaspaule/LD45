@@ -253,7 +253,7 @@ public class EditorManager : MonoBehaviour
         currentScene = menuScene;
         stageList = JsonReader.readJsonArray<Stage>(stagesJson.ToString());
         currentStage = 0;
-        StartEverything(false);        
+        StartEverything(true);        
     }
 
     void StartEverything(bool isDebug)
@@ -264,7 +264,7 @@ public class EditorManager : MonoBehaviour
             SwitchScene(false);
             toolsPanel.AddToolToPanel("playerpretty");
             toolsPanel.AddToolToPanel("platform");
-            toolsPanel.AddToolToPanel("enemyshooting-skeleton");
+            toolsPanel.AddToolToPanel("endpretty");
         }
         else {
             StartStage();

@@ -33,4 +33,14 @@ public class GameEditCoordinator : MonoBehaviour
         }
         isEditing = !isEditing;
     }
+
+    public void ClickedNextStage()
+    {
+        if (isEditing) editorManager.ClickedNextStage();
+    }
+
+    public void ClickedOpenLevelSelect()
+    {
+        if (isEditing) editorManager.OpenLevelSelect();
+    }
 }

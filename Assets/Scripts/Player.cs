@@ -28,7 +28,7 @@ public class Player : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
-        if (other.gameObject.name.Equals("end")) {
+        if (other.gameObject.name.StartsWith("end")) {
             gameManager.ResetPositions();
         }
     }

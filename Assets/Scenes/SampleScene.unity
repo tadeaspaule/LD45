@@ -2837,7 +2837,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 148642981}
+      objectReference: {fileID: 1157475257}
+    - target: {fileID: 4391184902752725359, guid: bcc88fa8138ffad42b3e21dba11c57e6,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ClickedNextStage
+      objectReference: {fileID: 0}
     - target: {fileID: 4391184902252483279, guid: bcc88fa8138ffad42b3e21dba11c57e6,
         type: 3}
       propertyPath: m_text
@@ -6519,7 +6524,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: 3.0460688e-12}
+  m_AnchoredPosition: {x: 0, y: 5.3345352e-14}
   m_SizeDelta: {x: 150, y: 0}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1360076479
@@ -6627,6 +6632,8 @@ MonoBehaviour:
     internalName: platformhalloween2
   - showName: Player
     internalName: playerpretty
+  - showName: End of the level
+    internalName: endpretty
 --- !u!114 &1360076483
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8531,11 +8538,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 148642981}
+      objectReference: {fileID: 1157475257}
     - target: {fileID: 4391184902752725359, guid: bcc88fa8138ffad42b3e21dba11c57e6,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OpenLevelSelect
+      value: ClickedOpenLevelSelect
       objectReference: {fileID: 0}
     - target: {fileID: 4391184902252483279, guid: bcc88fa8138ffad42b3e21dba11c57e6,
         type: 3}

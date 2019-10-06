@@ -12,7 +12,7 @@
     {
         "name": "main menu pretty",
         "gainTools": ["buttonpretty"],
-        "loseTools": [],
+        "loseTools": ["button"],
         "dialogMode": "art",
         "skippable": true,
         "dialogHeader": "Those buttons look a bit bland, maybe I should improve them just a bit...",
@@ -30,8 +30,8 @@
     },
     {
         "name": "first level pretty",
-        "gainTools": ["playerpretty","platformnature1","platformnature2","platformhalloween1","platformhalloween2"],
-        "loseTools": ["player"],
+        "gainTools": ["playerpretty","endpretty", "platformnature1","platformnature2","platformhalloween1","platformhalloween2"],
+        "loseTools": ["player","end"],
         "skippable": true,
         "dialogMode": "art",
         "dialogHeader": "Those models look awful, I should work on them a bit...",
