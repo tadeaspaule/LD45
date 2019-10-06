@@ -63,6 +63,7 @@ public class EditorManager : MonoBehaviour
     public List<int> skippedStages = new List<int>();
     public Transform checklistContainer;
     public GameObject checklistPrefab;
+    public GameObject checklistHeader;
 
     #endregion
     
@@ -118,6 +119,8 @@ public class EditorManager : MonoBehaviour
             ShowTooltip("Make more levels");
 
             // enable checklist
+            checklistContainer.gameObject.SetActive(true);
+            checklistHeader.SetActive(true);
             foreach (int i in skippedStages) {
                 Debug.Log($"Should add to checklist n. {i}");
                 GameObject go = Instantiate(checklistPrefab,Vector3.zero,Quaternion.identity,checklistContainer);
