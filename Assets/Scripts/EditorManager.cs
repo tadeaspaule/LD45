@@ -253,7 +253,7 @@ public class EditorManager : MonoBehaviour
         currentScene = menuScene;
         stageList = JsonReader.readJsonArray<Stage>(stagesJson.ToString());
         currentStage = 0;
-        StartEverything(true);        
+        StartEverything(false);        
     }
 
     void StartEverything(bool isDebug)
