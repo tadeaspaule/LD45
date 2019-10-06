@@ -82,6 +82,7 @@ public class GameManager : MonoBehaviour
     public void PlayerDied()
     {
         Debug.Log("Player died");
+        player.inJump = false;
         // reset positions
         ResetPositions();
     }

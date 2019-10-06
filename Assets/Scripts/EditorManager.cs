@@ -233,6 +233,7 @@ public class EditorManager : MonoBehaviour
         // toolsPanel.AddToolToPanel("platform");
         // toolsPanel.AddToolToPanel("enemyshooting");
         // toolsPanel.AddToolToPanel("enemywalking");
+        // toolsPanel.AddToolToPanel("spikes");
     }
 
     // Update is called once per frame

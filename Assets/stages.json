@@ -32,6 +32,15 @@
         "dialogMode": "art",
         "dialogHeader": "Those models look awful, I should work on them a bit...",
         "doItText": "Let me show you my amazing drawing skills!",
+        "afterSkip": "ground hazards"
+    },
+    {
+        "name": "ground hazards",
+        "gainTools": ["spikes"],
+        "skippable": true,
+        "dialogMode": "programming",
+        "dialogHeader": "I should add some ground hazards ...",
+        "doItText": "I know just the thing; spikes!",
         "afterSkip": "second level"
     },
     {

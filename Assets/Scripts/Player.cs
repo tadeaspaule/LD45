@@ -5,7 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     Rigidbody2D rb;
-    bool inJump = false;
+    public bool inJump = false;
     public GameManager gameManager;
     float originalGravity;
     
