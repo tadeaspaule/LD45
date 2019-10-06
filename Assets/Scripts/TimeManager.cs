@@ -28,7 +28,7 @@ public class TimeManager : MonoBehaviour
 
     public Animation timeBlinkAnimation;
 
-    const int timeLimit = 15 * 60;
+    const int timeLimit = 10 * 60;
 
     const int everyN = 5;
     Color normalCol = new Color(51f/255f,51f/255f,51f/255f,100f/255f);
@@ -76,7 +76,7 @@ public class TimeManager : MonoBehaviour
 
     IEnumerator StartCountdown()
     {
-        yield return new WaitForSeconds(startAnim.length - 2.5f);
+        yield return new WaitForSeconds(startAnim.length - 2.5f); // -2.5 so that time elapsed is like a penalty
         SetupTimes();
     }
 
@@ -92,6 +92,11 @@ public class TimeManager : MonoBehaviour
         if (!measuringTime) return;
         float oldModulo = currentTime % everyN;
         currentTime += Time.deltaTime*multiplier;
+        if (endTime - currentTime <= 1f) {
+            PlayEnd();
+            measuringTime = false;
+            return;
+        }
         float newModulo = currentTime % everyN;
         if (newModulo < oldModulo && !dontBlink) {
             Debug.Log($"Old modulo is {oldModulo}, new one is {newModulo}");

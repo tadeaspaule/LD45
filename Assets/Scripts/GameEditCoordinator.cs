@@ -7,12 +7,16 @@ public class GameEditCoordinator : MonoBehaviour
 {
     public GameManager gameManager;
     public EditorManager editorManager;
+    public TimeManager timeManager;
     public Animation toolPanelAnims;
     public TextMeshProUGUI btnText;
     bool isEditing = true;
 
+    bool preventAllClicks = false;
+
     public void ClickedSwitchButton()
     {
+        if (preventAllClicks) return;
         if (isEditing) {
             if (!editorManager.HasPlayer()) return;
             // switching to game mode
@@ -36,11 +40,23 @@ public class GameEditCoordinator : MonoBehaviour
 
     public void ClickedNextStage()
     {
+        if (preventAllClicks) return;
         if (isEditing) editorManager.ClickedNextStage();
     }
 
     public void ClickedOpenLevelSelect()
     {
+        if (preventAllClicks) return;
         if (isEditing) editorManager.OpenLevelSelect();
+    }
+
+    public void ClickedPublishGame()
+    {
+        preventAllClicks = true;
+        editorManager.CloseLevelSelect();
+        editorManager.customizePanel.CloseCustomizePanel();
+        editorManager.gameObject.SetActive(false);
+        gameManager.gameObject.SetActive(false);
+        timeManager.SetMultiplier(80f);
     }
 }

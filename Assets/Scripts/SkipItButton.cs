@@ -18,6 +18,6 @@ public class SkipItButton : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        text.text = $"The Jam ends in {tm.GetSecondsLeft()} seconds! Skip it!";
+        text.text = $"The Jam ends in <color=red>{tm.GetSecondsLeft()}<color=white> seconds! Skip it!";
     }
 }

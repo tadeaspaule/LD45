@@ -457,11 +457,4 @@ public class EditorManager : MonoBehaviour
     }
 
     #endregion
-
-    public void PublishGame()
-    {
-        // TODO ??? Maybe another screen, for now just play the ending animation
-        timeManager.PlayEnd();
-    }
-
 }
