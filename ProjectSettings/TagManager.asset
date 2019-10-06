@@ -43,3 +43,6 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: GameStuff
+    uniqueID: 1039354297
+    locked: 0
