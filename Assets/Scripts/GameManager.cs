@@ -42,14 +42,14 @@ public class GameManager : MonoBehaviour
         this.levelContainer = levelContainer;
         foreach (Transform child in levelContainer) {
             if (child.gameObject.name.Equals("player")) {
-                player = child.GetComponent<Player>();
+                player = child.GetComponentInChildren<Player>();
                 player.SwitchToGame();
                 originalPlayerPosition = child.position;
                 player.gameManager = this;
                 Debug.Log("Found player");
             }
             else if (child.gameObject.name.StartsWith("enemy")) {
-                EnemyBase enemy = child.GetComponent<EnemyBase>();
+                EnemyBase enemy = child.GetComponentInChildren<EnemyBase>();
                 enemy.gameManager = this;
                 enemies.Add(new EnemyWithPosition(enemy,child.position));
                 enemy.SwitchToGame();
@@ -68,6 +68,13 @@ public class GameManager : MonoBehaviour
         foreach (EnemyWithPosition ewp in enemies) {
             ewp.enemy.SwitchToEdit();
         }
+        // delete all bones spawned by dying skeletons
+        foreach (Transform child in levelContainer) {
+            if (child.gameObject.name.Equals("bone")) {
+                Destroy(child.gameObject);
+            }
+        }
+        
         // foreach (Platform platform in platforms) {
         //     platform.SwitchToEdit();
         // }
@@ -75,6 +82,8 @@ public class GameManager : MonoBehaviour
 
     public void EnemyDied(EnemyBase enemy)
     {
+        Debug.Log($"Enemy died called with object {enemy.gameObject.name}");
+        enemy.Die();
         // enemies.RemoveAll(ep => ep.enemy.Equals(enemy));
         enemy.gameObject.SetActive(false);
     }
@@ -96,8 +105,10 @@ public class GameManager : MonoBehaviour
         foreach (EnemyWithPosition ewp in enemies) {
             ewp.enemy.gameObject.SetActive(true);
             Rigidbody2D rb = ewp.enemy.gameObject.GetComponent<Rigidbody2D>();
-            rb.inertia = 0f;
-            rb.velocity = Vector2.zero;
+            if (rb != null) {
+                rb.inertia = 0f;
+                rb.velocity = Vector2.zero;
+            }
             ewp.enemy.transform.position = ewp.originalPosition + new Vector3(0f,0.3f,0f);
         }
     }

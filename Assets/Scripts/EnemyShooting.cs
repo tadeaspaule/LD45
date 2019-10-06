@@ -12,7 +12,7 @@ public class EnemyShooting : EnemyBase
     // Start is called before the first frame update
     void Start()
     {
-        base.Setup();     
+        base.Setup();
     }
 
     void OnCollisionEnter2D(Collision2D other) {
@@ -37,6 +37,8 @@ public class EnemyShooting : EnemyBase
         // keeps itself upright
         transform.rotation = Quaternion.identity;
     }
+
+    public override void Die(){}
 
     void Shoot()
     {

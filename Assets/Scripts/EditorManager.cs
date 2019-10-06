@@ -249,14 +249,22 @@ public class EditorManager : MonoBehaviour
         currentScene = menuScene;
         stageList = JsonReader.readJsonArray<Stage>(stagesJson.ToString());
         currentStage = 0;
-        StartStage();
-        // uncomment below to test game
-        SwitchScene(false);
-        // toolsPanel.AddToolToPanel("player");
-        // toolsPanel.AddToolToPanel("platformnature1");
-        // toolsPanel.AddToolToPanel("platformnature2");
-        // toolsPanel.AddToolToPanel("platformhalloween1");
-        // toolsPanel.AddToolToPanel("platformhalloween2");
+        StartEverything(false);        
+    }
+
+    void StartEverything(bool isDebug)
+    {
+        if (isDebug) {
+            playLevelBtn.gameObject.SetActive(true);
+            // here add stuff to test
+            SwitchScene(false);
+            toolsPanel.AddToolToPanel("player");
+            toolsPanel.AddToolToPanel("platform");
+            toolsPanel.AddToolToPanel("enemywalking-skeleton");
+        }
+        else {
+            StartStage();
+        }
     }
 
     // Update is called once per frame
@@ -345,7 +353,7 @@ public class EditorManager : MonoBehaviour
             case "move":
                 itemToPlace = selectedItem;
                 break;
-            case "delet":
+            case "delete":
                 if (selectedItem.name.Equals("player")) hasPlayer = false;
                 if (selectedItem.name.Equals("end")) hasEnd = false;
                 Destroy(selectedItem);

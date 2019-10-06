@@ -32,8 +32,14 @@ public class Enemy : EnemyBase
         goingRight = !goingRight;
     }
 
+    public override void Die()
+    {
+        Debug.Log("Normal Enemy die popped");
+    }
+
     public override void Act()
     {
+        rb.velocity = new Vector2(0f, rb.velocity.y); // fixes a weird bug where player is dragged to the right
         float mult = goingRight ? 1f : -1f;
         transform.position += new Vector3(speed*mult*Time.deltaTime,0f,0f);
     }

@@ -42,11 +42,22 @@ public class Player : MonoBehaviour
             gameManager.PlayerDied();
             return;
         }
-        else if (other.gameObject.name.StartsWith("enemy")) {
-            Vector3 enemyPos = other.gameObject.transform.position;
-            if (Mathf.Abs(transform.position.x-enemyPos.x) < 0.5f && transform.position.y > enemyPos.y) {
+        bool wasEnemy = false;
+        Transform check = other.transform;
+        while (check.transform.parent != null) {
+            if (check.gameObject.GetComponent<EnemyBase>() != null) {
+                wasEnemy = true;
+                break;
+            }
+            else {
+                check = check.parent;
+            }
+        }
+        if (wasEnemy) {
+            Vector3 enemyPos = check.position;
+            if (Mathf.Abs(check.position.x-enemyPos.x) < 0.5f && transform.position.y > enemyPos.y) {
                 // jumped on the head
-                gameManager.EnemyDied(other.gameObject.GetComponent<Enemy>());
+                gameManager.EnemyDied(check.gameObject.GetComponent<EnemyBase>());
             }
             else {
                 // player died

@@ -5,6 +5,8 @@ public abstract class EnemyBase : MonoBehaviour
     protected Rigidbody2D rb;
     protected float originalGravity;
     public GameManager gameManager;
+
+    public abstract void Die();
     
     public abstract void Act();
 
