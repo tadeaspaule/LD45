@@ -36,8 +36,6 @@ public class EnemyShooting : EnemyBase
             if (!shootingRight) shotMove*=-1f;
             shot.position += shotMove;
         }
-        // keeps itself upright
-        transform.rotation = Quaternion.identity;
     }
 
     public override void Die(){}

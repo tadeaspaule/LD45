@@ -33,8 +33,6 @@ Transform:
   - {fileID: 616632293989701946}
   - {fileID: 4245455713325311613}
   - {fileID: 3451907929479079713}
-  - {fileID: 2419822551949002931}
-  - {fileID: 8618893412636753487}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -88,11 +86,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2104376197349842430}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.94, y: 0.97, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -1.6166666, y: 2.0425, z: 0}
+  m_LocalScale: {x: 0.83333325, y: 2.5, z: 1}
   m_Children: []
-  m_Father: {fileID: 4827075066972485842}
-  m_RootOrder: 5
+  m_Father: {fileID: 616632293989701946}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &7303174302100802541
 BoxCollider2D:
@@ -104,7 +102,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -150,7 +148,9 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.153, z: 0}
   m_LocalScale: {x: 1.2, y: 0.4, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 2419822551949002931}
+  - {fileID: 8618893412636753487}
   m_Father: {fileID: 4827075066972485842}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -437,11 +437,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7410591257645550736}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.94, y: 0.97, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 1.6166666, y: 2.0425, z: 0}
+  m_LocalScale: {x: 0.83333325, y: 2.5, z: 1}
   m_Children: []
-  m_Father: {fileID: 4827075066972485842}
-  m_RootOrder: 4
+  m_Father: {fileID: 616632293989701946}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1711763778834401010
 BoxCollider2D:
@@ -453,7 +453,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}

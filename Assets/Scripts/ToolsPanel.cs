@@ -17,6 +17,7 @@ public class ToolsPanel : MonoBehaviour
     public Transform toolsPanel;
     public GameObject selectionPrefab;
     public TextMeshProUGUI hoverText;
+    public GameObject hovertextOuter;
 
     #endregion
 
@@ -34,7 +35,11 @@ public class ToolsPanel : MonoBehaviour
     {
         if (txt.Length == 0) {
             hoverText.text = "";
+            hovertextOuter.SetActive(false);
             return;
+        }
+        else {
+            hovertextOuter.SetActive(true);
         }
         foreach (NameIDPair nameIDPair in names) {
             if (nameIDPair.internalName.Equals(txt)) {

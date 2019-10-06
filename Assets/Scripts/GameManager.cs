@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
 
     public void Setup(Transform levelContainer)
     {
+        enemies.Clear();
         this.levelContainer = levelContainer;
         foreach (Transform child in levelContainer) {
             if (child.gameObject.name.StartsWith("player")) {
@@ -140,7 +141,7 @@ public class GameManager : MonoBehaviour
         }
         if (!foundPlayerMovement) player.NotMoving();
         foreach (EnemyWithPosition ewp in enemies) {
-            if (ewp.enemy.gameObject != null && ewp.enemy.gameObject.activeSelf) ewp.enemy.Act();
+            if (ewp.enemy != null && ewp.enemy.gameObject != null && ewp.enemy.gameObject.activeSelf) ewp.enemy.Act();
         }
     }    
 }
