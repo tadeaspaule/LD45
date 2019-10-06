@@ -69,6 +69,7 @@ public class Player : MonoBehaviour
 
     public void Move(float modifier)
     {
+        rb.velocity = new Vector2(0f, rb.velocity.y); // fixes a weird bug where player is dragged to the right
         transform.position += new Vector3(3.5f*modifier*Time.deltaTime,0f,0f);
     }
 

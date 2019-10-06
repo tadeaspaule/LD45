@@ -48,6 +48,7 @@ public class EditorManager : MonoBehaviour
         }
         transitionAnim.Play();
         StartCoroutine(TimeSpeedupDuringTransition());
+        StartCoroutine(UpdateToolsDuringAnim());
     }
 
     IEnumerator TimeSpeedupDuringTransition()
@@ -55,6 +56,12 @@ public class EditorManager : MonoBehaviour
         timeManager.SetMultiplier(30f);
         yield return new WaitForSeconds(animClip.length);
         timeManager.SetMultiplier(1f);
+    }
+
+    IEnumerator UpdateToolsDuringAnim()
+    {
+        yield return new WaitForSeconds(animClip.length*0.5f);
+        toolsPanel.DisplayTools(availableTools.ToArray(), isInMenu);
     }
     
     #endregion
@@ -244,12 +251,12 @@ public class EditorManager : MonoBehaviour
         currentStage = 0;
         StartStage();
         // uncomment below to test game
-        // SwitchScene(false);
+        SwitchScene(false);
         // toolsPanel.AddToolToPanel("player");
-        // toolsPanel.AddToolToPanel("platform");
-        // toolsPanel.AddToolToPanel("enemyshooting");
-        // toolsPanel.AddToolToPanel("enemywalking");
-        // toolsPanel.AddToolToPanel("spikes");
+        // toolsPanel.AddToolToPanel("platformnature1");
+        // toolsPanel.AddToolToPanel("platformnature2");
+        // toolsPanel.AddToolToPanel("platformhalloween1");
+        // toolsPanel.AddToolToPanel("platformhalloween2");
     }
 
     // Update is called once per frame
@@ -348,10 +355,10 @@ public class EditorManager : MonoBehaviour
                 customizePanel.CloseCustomizePanel();
                 break;
             case "expand":
-                selectedItem.transform.GetChild(1).localScale += new Vector3(0.3f,0f,0f);
+                selectedItem.GetComponent<Resizer>().Expand();
                 break;
             case "shrink":
-                selectedItem.transform.GetChild(1).localScale -= new Vector3(0.3f,0f,0f);
+                selectedItem.GetComponent<Resizer>().Shrink();
                 break;
             default:
                 break;
@@ -394,7 +401,11 @@ public class EditorManager : MonoBehaviour
 
     public void ClickedChecklistItem(GameObject go)
     {
-        PlayTransition(int.Parse(go.name));
+        int index = int.Parse(go.name);
+        foreach (string tool in stageList[index].gainTools) {
+            availableTools.Add(tool);
+        }
+        PlayTransition(index);
         Destroy(go);
     }
 

@@ -43,7 +43,7 @@ public class CustomizePanel : MonoBehaviour
         options.Add("move");
         options.Add("delete");
         // add more options
-        if (itemName.Equals("platform")) {
+        if (itemName.StartsWith("platform")) {
             options.Add("expand");
             options.Add("shrink");
         }

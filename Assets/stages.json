@@ -27,7 +27,7 @@
     },
     {
         "name": "first level pretty",
-        "gainTools": [],
+        "gainTools": ["platformnature1","platformnature2","platformhalloween1","platformhalloween2"],
         "skippable": true,
         "dialogMode": "art",
         "dialogHeader": "Those models look awful, I should work on them a bit...",
