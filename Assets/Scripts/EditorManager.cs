@@ -324,8 +324,20 @@ public class EditorManager : MonoBehaviour
     public void ToolClicked(string name)
     {
         if (itemToPlace != null) return;
-        if (name.StartsWith("player") && HasPlayer()) return;
-        if (name.StartsWith("end") && HasEnd()) return;
+        if (name.StartsWith("player") && HasPlayer()) {
+            foreach (Transform child in currentScene) {
+                if (child.name.StartsWith("player")) SetSelectedItem(child.gameObject);
+                customizePanel.OpenCustomizeOptions(child.gameObject.name);
+            }
+            return;
+        }
+        if (name.StartsWith("end") && HasEnd()) {
+            foreach (Transform child in currentScene) {
+                if (child.name.StartsWith("player")) SetSelectedItem(child.gameObject);
+                customizePanel.OpenCustomizeOptions(child.gameObject.name);
+            }
+            return;
+        }
         Debug.Log($"Clicked tool {name}");
         GameObject prefab = GetItemPrefab(name);
         Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
