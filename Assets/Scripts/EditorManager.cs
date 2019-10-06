@@ -23,8 +23,6 @@ public class EditorManager : MonoBehaviour
     GameObject itemToPlace = null; // item you're moving
     GameObject selectedItem = null; // item you're editing
 
-    bool itemWasClicked = false;
-
     #endregion
     
     #region Transition
@@ -383,10 +381,9 @@ public class EditorManager : MonoBehaviour
                 customizePanel.OpenCustomizeOptions(selectedItem.name);
             }
         }
-        else if (Input.GetMouseButtonDown(0)) {
-            if (!itemWasClicked) SetSelectedItem(null);
+        else if (Input.GetKeyDown(KeyCode.Escape)) {
+            SetSelectedItem(null);
         }
-        itemWasClicked = false;
     }
 
     #endregion
@@ -503,7 +500,6 @@ public class EditorManager : MonoBehaviour
 
     public void PlacedItemClicked(GameObject item)
     {
-        itemWasClicked = true;
         nextStageBtn.SetActive(true);
         Debug.Log("Clicked placed item");
         if (itemToPlace != null) return; // nothing happens if currently dragging something
